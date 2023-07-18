@@ -1,0 +1,18 @@
+version: '3.3'
+
+services:
+  app:
+    build: .
+    entrypoint: sh ./.docker/entrypoint.sh
+    container_name: tallosflix-admin
+    ports:
+      - 8080:8080
+    restart: always
+    tty: true
+    networks:
+      - movies
+    volumes:
+      - .:/home/app
+networks:
+  movies:
+    external: true
