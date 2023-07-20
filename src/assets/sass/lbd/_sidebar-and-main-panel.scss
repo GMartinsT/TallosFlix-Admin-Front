@@ -62,20 +62,19 @@ body > .navbar-collapse{
             align-items: center;
 
             .logo-img{
-              width: 40px;
-              display: inline-flex;
-              justify-content: center;
-              align-items: center;
-              height: 40px;
-              margin-left: 0px;
-              margin-right: 10px;
-              background: white;
-              border-radius: 40px;
-
-              img{
-                max-width: 21px;
-              }
+                width: 5px;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                margin-left: 0px;
+                margin-right: 10px;
             }
+
+            img {
+                width: 200px;
+            }
+
+            
           }
     }
 
@@ -189,6 +188,8 @@ body > .navbar-collapse{
     .logo{
         padding: $navbar-padding-a;
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        display: flex;
+        justify-content: center;
 
         p{
             float: left;
