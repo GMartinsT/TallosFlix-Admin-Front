@@ -96,8 +96,7 @@ body {
 }
 
 .login-form button:hover {
-  background-color: #464646;
-  border: 1px solid #f1f1f1;
+  background-color: rgb(10, 40, 209);
 }
 
 label {
