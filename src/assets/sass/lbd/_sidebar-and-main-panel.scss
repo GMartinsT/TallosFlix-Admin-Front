@@ -36,7 +36,6 @@ body > .navbar-collapse{
     }
 
     .logo{
-        padding: 10px 15px 9px 15px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         position: relative;
         z-index: 4;
@@ -186,7 +185,6 @@ body > .navbar-collapse{
     }
 
     .logo{
-        padding: $navbar-padding-a;
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         display: flex;
         justify-content: center;
