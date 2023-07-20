@@ -18,7 +18,7 @@
 
     .navbar-brand {
         font-weight: 400;
-        margin: 5px 0px;
+        margin: 5px 380px;
         font-size: 20px;
         color: $default-color;
 
@@ -68,7 +68,6 @@
         .nav-item{
             .nav-link{
                 color: $default-color;
-                padding: $navbar-padding-a;
                 position: relative;
                 display: inline-flex;
                 line-height: 1.2;
