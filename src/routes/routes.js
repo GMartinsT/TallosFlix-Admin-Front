@@ -12,6 +12,7 @@ import Maps from 'src/pages/Maps.vue'
 import Notifications from 'src/pages/Notifications.vue'
 import Upgrade from 'src/pages/Upgrade.vue'
 import Login from 'src/pages/login.vue'
+import SidebarTF from 'src/components/SidebarTF.vue'
 
 const routes = [
   {
@@ -22,6 +23,7 @@ const routes = [
     path: '/login',
     component: Login
   },
+  
   {
     path: '/admin',
     component: DashboardLayout,
@@ -68,6 +70,11 @@ const routes = [
         component: Upgrade
       }
     ]
+  },
+  {
+    path: '/sidebar',
+    name: 'Sidebar',
+    component: SidebarTF
   },
   { path: '*', component: NotFound }
 ]
