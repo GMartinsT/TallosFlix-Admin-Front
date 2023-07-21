@@ -53,8 +53,8 @@
             <div slot="footer"><i class="fa fa-refresh"></i>Updated now</div>
           </stats-card>
         </div>
-        <div>
-          <card>
+        <div class="editCard">
+          <card class="editPCard">
             <template slot="header">
               <h3>Meu Perfil:</h3>
             </template>
@@ -76,6 +76,52 @@
               <button class="editProfile">Editar</button>
             </div>
           </card>
+        </div>
+        <div class="moviecard">
+          <card class="tableCard">
+            <template slot="header">
+              <h4 class="card-title">Lançamentos:</h4>
+              <p class="card-category">Lista dos filmes mais recentes</p>
+            </template>
+          </card>
+          <div class="table-responsive">
+            <table class="movieTable">
+              <thead>
+                <tr>
+                  <th>Título</th>
+                  <th>Data de Lançamento</th>
+                  <th>Duração</th>
+                  <th>Nota IMDb</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Movie 1</td>
+                  <td>01/01/2023</td>
+                  <td>120 min</td>
+                  <td>8.5</td>
+                </tr>
+                <tr>
+                  <td>Movie 2</td>
+                  <td>15/02/2023</td>
+                  <td>95 min</td>
+                  <td>7.9</td>
+                </tr>
+                <tr>
+                  <td>Movie 3</td>
+                  <td>15/02/2023</td>
+                  <td>105 min</td>
+                  <td>8.9</td>
+                </tr>
+                <tr>
+                  <td>Movie 4</td>
+                  <td>15/02/2023</td>
+                  <td>98 min</td>
+                  <td>6.9</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -102,120 +148,6 @@ export default {
           series: [40, 20, 40],
         },
       },
-      lineChart: {
-        data: {
-          labels: [
-            "9:00AM",
-            "12:00AM",
-            "3:00PM",
-            "6:00PM",
-            "9:00PM",
-            "12:00PM",
-            "3:00AM",
-            "6:00AM",
-          ],
-          series: [
-            [287, 385, 490, 492, 554, 586, 698, 695],
-            [67, 152, 143, 240, 287, 335, 435, 437],
-            [23, 113, 67, 108, 190, 239, 307, 308],
-          ],
-        },
-        options: {
-          low: 0,
-          high: 800,
-          showArea: false,
-          height: "245px",
-          axisX: {
-            showGrid: false,
-          },
-          lineSmooth: true,
-          showLine: true,
-          showPoint: true,
-          fullWidth: true,
-          chartPadding: {
-            right: 50,
-          },
-        },
-        responsiveOptions: [
-          [
-            "screen and (max-width: 640px)",
-            {
-              axisX: {
-                labelInterpolationFnc(value) {
-                  return value[0];
-                },
-              },
-            },
-          ],
-        ],
-      },
-      barChart: {
-        data: {
-          labels: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "Mai",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec",
-          ],
-          series: [
-            [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
-            [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695],
-          ],
-        },
-        options: {
-          seriesBarDistance: 10,
-          axisX: {
-            showGrid: false,
-          },
-          height: "245px",
-        },
-        responsiveOptions: [
-          [
-            "screen and (max-width: 640px)",
-            {
-              seriesBarDistance: 5,
-              axisX: {
-                labelInterpolationFnc(value) {
-                  return value[0];
-                },
-              },
-            },
-          ],
-        ],
-      },
-      tableData: {
-        data: [
-          {
-            title:
-              'Sign contract for "What are conference organizers afraid of?"',
-            checked: false,
-          },
-          {
-            title:
-              "Lines From Great Russian Literature? Or E-mails From My Boss?",
-            checked: true,
-          },
-          {
-            title:
-              "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
-            checked: true,
-          },
-          {
-            title: "Create 4 Invisible User Experiences you Never Knew About",
-            checked: false,
-          },
-          { title: 'Read "Following makes Medium better"', checked: false },
-          { title: "Unfollow 5 enemies from twitter", checked: false },
-        ],
-      },
     };
   },
 };
@@ -241,5 +173,45 @@ export default {
 
 .editBtn button:hover {
   background-color: #464646;
+}
+
+.moviecard {
+  width: 72.1%;
+}
+
+.editCard {
+  margin-left: 15px;
+  margin-right: 30px;
+}
+
+.tableCard {
+  margin-bottom: 0px;
+}
+
+table {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+th {
+  padding: 0 3.5rem;
+  font-weight: 550;
+  color: #505050;
+}
+
+td {
+  padding: 0 3.5rem;
+}
+
+.editPCard {
+  padding-bottom: 10px;
+  margin-bottom: 0px;
+}
+
+.navbar-brand {
+  margin-left: 40%;
+}
+
+.navbar-nav {
+  padding-right: 1rem;
 }
 </style>
