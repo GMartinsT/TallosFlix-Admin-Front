@@ -93,10 +93,12 @@ body {
   cursor: pointer;
   outline: none;
   margin-block-start: 8px;
+  font-weight: bold;
 }
 
 .login-form button:hover {
-  background-color: rgb(10, 40, 209);
+  background-color: rgb(0 88 207);
+  border: 1px solid #f1f1f1;
 }
 
 label {
