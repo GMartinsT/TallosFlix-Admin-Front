@@ -182,13 +182,22 @@ export default {
 .editCard {
   margin-left: 15px;
   margin-right: 30px;
+  width: 22.2%;
 }
 
 .tableCard {
   margin-bottom: 0px;
 }
 
+.movieTable {
+  width: 100%;
+}
+
 table {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+thead {
   border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
@@ -196,10 +205,12 @@ th {
   padding: 0 3.5rem;
   font-weight: 550;
   color: #505050;
+  text-align: center;
 }
 
 td {
   padding: 0 3.5rem;
+  text-align: center;
 }
 
 .editPCard {
@@ -213,5 +224,9 @@ td {
 
 .navbar-nav {
   padding-right: 1rem;
+}
+
+.content {
+  background-color: #f8f8f8;
 }
 </style>
