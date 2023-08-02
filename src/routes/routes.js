@@ -39,7 +39,7 @@ const routes = [
         component: UserProfile
       },
       {
-        path: 'table-list',
+        path: 'users',
         name: 'Table List',
         component: TableList
       },

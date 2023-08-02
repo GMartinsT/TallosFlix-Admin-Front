@@ -12,7 +12,10 @@ export const login = async (email, password) => {
     });
     // Verifica se a resposta tem um token válido
     if (response.data && response.data.access_token) {
-      localStorage.setItem("access_token", response.data.access_token);
+      const userId = response.data.session.user_id;
+      const access_token = response.data.access_token;
+      localStorage.setItem("userId", userId);
+      localStorage.setItem("access_token", access_token);
     }
     return response.data;
   } catch (error) {

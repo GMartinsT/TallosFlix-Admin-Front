@@ -16,6 +16,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
+import store from './store/store'
+import Vuex from "vuex"
 
 // LightBootstrap plugin
 import LightBootstrap from './light-bootstrap-main'
@@ -27,6 +29,7 @@ import './registerServiceWorker'
 // plugin setup
 Vue.use(VueRouter)
 Vue.use(LightBootstrap)
+Vue.use(Vuex)
 
 // configure router
 const router = new VueRouter({
@@ -45,5 +48,6 @@ const router = new VueRouter({
 new Vue({
   el: '#app',
   render: h => h(App),
-  router
+  router,
+  store,
 })

@@ -17,8 +17,8 @@
                 <th>Email</th>
               </template>
               <template>
-                <tr v-for="user in users" :key="user.id">
-                  <td>{{ user.id }}</td>
+                <tr v-for="(user, index) in users" :key="index">
+                  <td>{{ user._id }}</td>
                   <td>{{ user.name }}</td>
                   <td>{{ user.email }}</td>
                 </tr>
@@ -33,6 +33,8 @@
 <script>
 import Card from "src/components/Cards/Card.vue";
 import GenericTable from "src/components/GenericTable.vue";
+import UsersService from "src/services/UsersService.js";
+
 export default {
   components: {
     Card,
@@ -40,11 +42,23 @@ export default {
   },
   data() {
     return {
-      users: [
-        { id: 1, name: "Usuário 1", email: "user1@example.com" },
-        { id: 2, name: "Usuário 2", email: "user2@example.com" },
-      ],
+      users: [],
     };
+  },
+  created() {
+    this.getUsers();
+  },
+  methods: {
+    getUsers() {
+      UsersService.findAll()
+        .then((response) => {
+          this.users = response.data;
+          console.log("Usuários obtidos:", this.users);
+        })
+        .catch((error) => {
+          console.error("Erro ao obter a lista de usuários:", error);
+        });
+    },
   },
 };
 </script>

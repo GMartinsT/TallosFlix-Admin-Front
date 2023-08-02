@@ -8,37 +8,62 @@
           alt="Logo Tallosflix"
         />
       </div>
-      <form class="login-form">
+      <form class="login-form" @submit.prevent="handleSubmit">
         <label class="labelEmail" for="email">E-mail:</label>
-        <input type="email" placeholder="Email" required />
+        <input v-model="user.email" type="email" placeholder="Email" required />
         <label for="password">Senha:</label>
-        <input type="password" placeholder="Senha" required />
+        <input
+          v-model="user.password"
+          type="password"
+          placeholder="Senha"
+          required
+        />
         <button type="submit">Login</button>
       </form>
     </div>
   </body>
 </template>
 <script>
+import { ref } from "vue";
+import { login } from "../services/AuthService";
+import store from "../store/store";
 export default {
   name: "Login",
-  data() {
-    return { showPassword: false };
-  },
   setup() {
     const user = ref({
       email: "",
       password: "",
     });
 
+    const handleSubmit = async () => {
+      try {
+        const response = await login(user.value.email, user.value.password);
+
+        if (response && response.access_token) {
+          store.commit("setUser", { email: user.value.email }); // Salvar os dados do usuário no Vuex Store
+          store.commit("setToken", response.access_token); // Salvar o token no Vuex Store
+          store.commit("setUserId", response.session.user_id);
+
+          location.replace("/#/admin/overview");
+          console.log("Login bem-sucedido!");
+        } else {
+          console.log("Credenciais inválidas");
+        }
+      } catch (error) {
+        console.error("Erro ao fazer login:", error);
+      }
+    };
+
     return {
       user,
+      handleSubmit,
     };
   },
 };
 </script>
 <style scoped>
 body {
-  background-image: url("/home/gmartins/documentos/tallos/TallosFlix-Admin-Front/public/img/login/backgroundlogin1.jpg");
+  background-image: url("/public/img/login/backgroundlogin1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;

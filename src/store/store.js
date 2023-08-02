@@ -5,42 +5,42 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    user: null,
-    token: null,
+    userId: null,
+    access_token: null,
   },
   mutations: {
-    setUser(state, user) {
-      state.user = user;
+    setUserId(state, userId) {
+      state.userId = userId;
     },
-    setToken(state, token) {
-      state.token = token;
+    setToken(state, access_token) {
+      state.access_token = access_token;
     },
-    clearUser(state) {
-      state.user = null;
+    clearUserId(state) {
+      state.userId = null;
     },
     clearToken(state) {
-      state.token = null;
+      state.access_token = null;
     },
   },
   actions: {
-    loginUser({ commit }, { user, token }) {
-      commit('setUser', user);
-      commit('setToken', token);
+    loginUser({ commit }, { userId, access_token }) {
+      commit('setUser', userId);
+      commit('setToken', access_token);
     },
     logoutUser({ commit }) {
-      commit('clearUser');
+      commit('clearUserId');
       commit('clearToken');
     },
   },
   getters: {
-    user(state) {
-      return state.user;
+    getUserId(state) {
+      return state.userId;
     },
-    token(state) {
-      return state.token;
+    getToken(state) {
+      return state.access_token;
     },
     isAuthenticated(state) {
-      return !!state.token;
+      return !!state.access_token;
     },
   },
 });
