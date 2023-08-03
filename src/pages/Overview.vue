@@ -9,9 +9,8 @@
             </div>
             <div slot="content">
               <p class="card-category">Usuários</p>
-              <h4 class="card-title">{{ userCount }}</h4>
+              <h4 class="card-title">{{ usersCount }}</h4>
             </div>
-            <div slot="footer"><i class="fa fa-refresh"></i>Atualizar</div>
           </stats-card>
         </div>
 
@@ -22,9 +21,8 @@
             </div>
             <div slot="content">
               <p class="card-category">Filmes</p>
-              <h4 class="card-title">1234</h4>
+              <h4 class="card-title">{{ moviesCount }}</h4>
             </div>
-            <div slot="footer"><i class="fa fa-refresh"></i>Atualizar</div>
           </stats-card>
         </div>
 
@@ -141,18 +139,17 @@ export default {
         password: "",
       },
       latestMovies: [],
-      userCount: 0,
+      usersCount: 0,
+      moviesCount: 0,
     };
   },
   created() {
     this.loadLatestMovies();
-    this.loadUserCount();
-    // Recupera o userId armazenado no LocalStorage
+    this.loadUsersCount();
+    this.loadMoviesCount();
     const userId = localStorage.getItem("userId");
 
-    // Verifica se o userId está presente
     if (userId) {
-      // Chama o método findUserById(userId) para obter os detalhes do usuário
       UsersService.findUserById(userId)
         .then((response) => {
           (this.user._id = response.data._id),
@@ -170,7 +167,6 @@ export default {
   },
   methods: {
     updateUser() {
-      // Chama o método updateUser para atualizar os detalhes do usuário
       UsersService.updateUser(this.user._id, this.user)
         .then((response) => {
           console.log("Detalhes do usuário atualizados:", response.data);
@@ -189,17 +185,24 @@ export default {
     },
 
     formatDate(date) {
-      // Função para formatar a data de lançamento (se necessário)
-      // Exemplo: retorna "09/05/1893"
       return new Date(date).toLocaleDateString();
     },
 
-    async loadUserCount() {
+    async loadUsersCount() {
       try {
         const response = await UsersService.getUsersCount();
-        this.userCount = response.data; // Atualiza a contagem de usuários
+        this.usersCount = response.data;
       } catch (error) {
         console.error("Erro ao obter a contagem de usuários:", error);
+      }
+    },
+
+    async loadMoviesCount() {
+      try {
+        const response = await MoviesService.getMoviesCount();
+        this.moviesCount = response.data;
+      } catch (error) {
+        console.error("Erro ao obter a contagem de filmes:", error);
       }
     },
   },

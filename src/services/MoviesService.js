@@ -1,7 +1,6 @@
 import { ApiService } from "./api.js";
 
 export default {
-  // Método para listar todos os filmes com paginação
   async getAllMovies(page = 1, perPage = 10) {
     try {
       const response = await ApiService.get("/movies", {
@@ -16,7 +15,6 @@ export default {
     }
   },
 
-  // Método para obter um filme específico pelo ID
   async getMovieById(id) {
     try {
       const response = await ApiService.get(`/movies/${id}`);
@@ -26,7 +24,6 @@ export default {
     }
   },
 
-  // Método para criar um novo filme
   async createMovie(movieData) {
     try {
       const response = await ApiService.post("/movies", movieData);
@@ -36,7 +33,6 @@ export default {
     }
   },
 
-  // Método para atualizar um filme existente
   async updateMovie(id, movieData) {
     try {
       const response = await ApiService.put(`/movies/${id}`, movieData);
@@ -46,7 +42,6 @@ export default {
     }
   },
 
-  // Método para excluir um filme pelo ID
   async deleteMovie(id) {
     try {
       const response = await ApiService.delete(`/movies/${id}`);
@@ -54,5 +49,9 @@ export default {
     } catch (error) {
       throw new Error("Erro ao excluir o filme.");
     }
+  },
+
+  getMoviesCount() {
+    return ApiService.get('/movies/count/allmovies');
   },
 };
