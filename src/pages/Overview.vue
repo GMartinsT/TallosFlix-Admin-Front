@@ -33,9 +33,8 @@
             </div>
             <div slot="content">
               <p class="card-category">Cinemas</p>
-              <h4 class="card-title">123</h4>
+              <h4 class="card-title">{{ theatersCount }}</h4>
             </div>
-            <div slot="footer"><i class="fa fa-refresh"></i>Atualizar</div>
           </stats-card>
         </div>
 
@@ -46,9 +45,8 @@
             </div>
             <div slot="content">
               <p class="card-category">Comentários</p>
-              <h4 class="card-title">+1000</h4>
+              <h4 class="card-title">{{ commentsCount }}</h4>
             </div>
-            <div slot="footer"><i class="fa fa-refresh"></i>Updated now</div>
           </stats-card>
         </div>
         <div class="editCard">
@@ -123,6 +121,8 @@ import StatsCard from "src/components/Cards/StatsCard.vue";
 import LTable from "src/components/Table.vue";
 import UsersService from "src/services/UsersService.js";
 import MoviesService from "src/services/MoviesService.js";
+import TheatersService from "src/services/TheatersService.js";
+import CommentsService from "src/services/CommentsService.js";
 
 export default {
   components: {
@@ -141,12 +141,16 @@ export default {
       latestMovies: [],
       usersCount: 0,
       moviesCount: 0,
+      theatersCount: 0,
+      commentsCount: 0,
     };
   },
   created() {
     this.loadLatestMovies();
     this.loadUsersCount();
     this.loadMoviesCount();
+    this.loadTheatersCount();
+    this.loadCommentsCount();
     const userId = localStorage.getItem("userId");
 
     if (userId) {
@@ -203,6 +207,24 @@ export default {
         this.moviesCount = response.data;
       } catch (error) {
         console.error("Erro ao obter a contagem de filmes:", error);
+      }
+    },
+
+    async loadTheatersCount() {
+      try {
+        const response = await TheatersService.getTheatersCount();
+        this.theatersCount = response.data;
+      } catch (error) {
+        console.error("Erro ao obter a contagem de cinemas:", error);
+      }
+    },
+
+    async loadCommentsCount() {
+      try {
+        const response = await CommentsService.getCommentsCount();
+        this.commentsCount = response.data;
+      } catch (error) {
+        console.error("Erro ao obter a contagem de comentários:", error);
       }
     },
   },
@@ -289,6 +311,8 @@ td {
 
 .content {
   background-color: #f8f8f8;
+  padding: 30px 15px 5px;
+  min-height: calc(100% - 147px) !important;
 }
 
 .table-container {
