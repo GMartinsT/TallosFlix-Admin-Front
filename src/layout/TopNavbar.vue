@@ -5,43 +5,33 @@
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a href="#" class="nav-link"> Log out </a>
+            <a href="#" class="nav-link" @click="logout">Log out</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
 </template>
+
 <script>
+// Importe o store.js
+import store from "src/store/store.js";
+
 export default {
-  computed: {
-    routeName() {
-      const { name } = this.$route;
-      return this.capitalizeFirstLetter(name);
-    },
-  },
-  data() {
-    return {
-      activeNotifications: false,
-    };
-  },
   methods: {
-    capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    },
-    toggleNotificationDropDown() {
-      this.activeNotifications = !this.activeNotifications;
-    },
-    closeDropDown() {
-      this.activeNotifications = false;
-    },
-    toggleSidebar() {
-      this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
-    },
-    hideSidebar() {
-      this.$sidebar.displaySidebar(false);
+    logout() {
+      // Chame a ação logoutUser do Vuex para limpar os dados do usuário e token
+      store.dispatch("logoutUser");
+
+      // Remova os dados do localStorage
+      localStorage.removeItem("userId");
+      localStorage.removeItem("access_token");
+
+      // Redirecione o usuário para a página de login
+      this.$router.push("/login");
     },
   },
 };
 </script>
+
 <style></style>

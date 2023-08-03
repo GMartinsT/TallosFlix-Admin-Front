@@ -282,6 +282,7 @@ table {
 
 thead {
   border: 1px solid rgba(0, 0, 0, 0.125);
+  background-color: #fff;
 }
 
 th {
