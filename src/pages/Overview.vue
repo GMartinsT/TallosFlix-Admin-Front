@@ -9,7 +9,7 @@
             </div>
             <div slot="content">
               <p class="card-category">Usuários</p>
-              <h4 class="card-title">1234</h4>
+              <h4 class="card-title">{{ userCount }}</h4>
             </div>
             <div slot="footer"><i class="fa fa-refresh"></i>Atualizar</div>
           </stats-card>
@@ -141,10 +141,12 @@ export default {
         password: "",
       },
       latestMovies: [],
+      userCount: 0,
     };
   },
   created() {
     this.loadLatestMovies();
+    this.loadUserCount();
     // Recupera o userId armazenado no LocalStorage
     const userId = localStorage.getItem("userId");
 
@@ -190,6 +192,15 @@ export default {
       // Função para formatar a data de lançamento (se necessário)
       // Exemplo: retorna "09/05/1893"
       return new Date(date).toLocaleDateString();
+    },
+
+    async loadUserCount() {
+      try {
+        const response = await UsersService.getUsersCount();
+        this.userCount = response.data; // Atualiza a contagem de usuários
+      } catch (error) {
+        console.error("Erro ao obter a contagem de usuários:", error);
+      }
     },
   },
 };

@@ -21,8 +21,11 @@ export default {
     return ApiService.patch(`/users/${userId}`, userData);
   },
 
-  // Excluir um usuário pelo ID
   deleteUser(userId) {
     return ApiService.delete(`/users/${userId}`);
+  },
+
+  getUsersCount() {
+    return ApiService.get('/users/count/allusers');
   },
 };
