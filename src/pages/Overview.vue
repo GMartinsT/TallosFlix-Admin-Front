@@ -61,19 +61,27 @@
             <div>
               <div class="profileInput">
                 <label for="name">Nome:</label>
-                <input type="text" placeholder="Nome Exemplo" disabled />
+                <input
+                  type="text"
+                  v-model="user.name"
+                  placeholder="user.name"
+                />
               </div>
               <div class="profileInput">
                 <label for="email">E-mail:</label>
-                <input type="email" placeholder="email@exemple.com" disabled />
+                <input type="email" v-model="user.email" />
               </div>
               <div class="profileInput">
                 <label for="password">Senha:</label>
-                <input type="password" placeholder="******" />
+                <input
+                  type="password"
+                  v-model="user.password"
+                  placeholder="Senha do usuário"
+                />
               </div>
             </div>
             <div class="editBtn">
-              <button class="editProfile">Editar</button>
+              <button class="editProfile" @click="updateUser">Editar</button>
             </div>
           </card>
         </div>
@@ -131,6 +139,8 @@
 import Card from "src/components/Cards/Card.vue";
 import StatsCard from "src/components/Cards/StatsCard.vue";
 import LTable from "src/components/Table.vue";
+import UsersService from "src/services/UsersService.js";
+import ApiService from "src/services/api.js";
 
 export default {
   components: {
@@ -140,15 +150,47 @@ export default {
   },
   data() {
     return {
-      editTooltip: "Edit Task",
-      deleteTooltip: "Remove",
-      pieChart: {
-        data: {
-          labels: ["40%", "20%", "40%"],
-          series: [40, 20, 40],
-        },
+      user: {
+        _id: "",
+        name: "",
+        email: "",
+        password: "",
       },
     };
+  },
+  created() {
+    // Recupera o userId armazenado no LocalStorage
+    const userId = localStorage.getItem("userId");
+
+    // Verifica se o userId está presente
+    if (userId) {
+      // Chama o método findUserById(userId) para obter os detalhes do usuário
+      UsersService.findUserById(userId)
+        .then((response) => {
+          (this.user._id = response.data._id),
+            (this.user.name = response.data.name),
+            (this.user.email = response.data.email),
+            (this.user.password = response.data.password),
+            console.log("Detalhes do usuário:", this.user);
+        })
+        .catch((error) => {
+          console.error("Erro ao obter os detalhes do usuário:", error);
+        });
+    } else {
+      console.warn("UserId não encontrado no LocalStorage.");
+    }
+  },
+  methods: {
+    updateUser() {
+      // Chama o método updateUser para atualizar os detalhes do usuário
+      UsersService.updateUser(this.user._id, this.user)
+        .then((response) => {
+          console.log("Detalhes do usuário atualizados:", response.data);
+        })
+        .catch((error) => {
+          console.error("Erro ao atualizar os detalhes do usuário:", error);
+        });
+    },
   },
 };
 </script>

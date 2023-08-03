@@ -18,7 +18,7 @@ export default {
 
   
   updateUser(userId, userData) {
-    return ApiService.put(`/users/${userId}`, userData);
+    return ApiService.patch(`/users/${userId}`, userData);
   },
 
   // Excluir um usuário pelo ID
