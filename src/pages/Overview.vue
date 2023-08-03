@@ -92,43 +92,27 @@
               <p class="card-category">Lista dos filmes mais recentes</p>
             </template>
           </card>
-          <div class="table-responsive">
-            <table class="movieTable">
-              <thead>
-                <tr>
-                  <th>Título</th>
-                  <th>Data de Lançamento</th>
-                  <th>Duração</th>
-                  <th>Nota IMDb</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Movie 1</td>
-                  <td>01/01/2023</td>
-                  <td>120 min</td>
-                  <td>8.5</td>
-                </tr>
-                <tr>
-                  <td>Movie 2</td>
-                  <td>15/02/2023</td>
-                  <td>95 min</td>
-                  <td>7.9</td>
-                </tr>
-                <tr>
-                  <td>Movie 3</td>
-                  <td>15/02/2023</td>
-                  <td>105 min</td>
-                  <td>8.9</td>
-                </tr>
-                <tr>
-                  <td>Movie 4</td>
-                  <td>15/02/2023</td>
-                  <td>98 min</td>
-                  <td>6.9</td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="table-container">
+            <div class="table-responsive">
+              <table class="movieTable">
+                <thead>
+                  <tr>
+                    <th>Título</th>
+                    <th>Data de Lançamento</th>
+                    <th>Duração</th>
+                    <th>Nota IMDb</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="movie in latestMovies" :key="movie._id">
+                    <td class="movie-title">{{ movie.title }}</td>
+                    <td>{{ formatDate(movie.released) }}</td>
+                    <td>{{ movie.runtime }} min</td>
+                    <td>{{ movie.imdb.rating }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -140,7 +124,7 @@ import Card from "src/components/Cards/Card.vue";
 import StatsCard from "src/components/Cards/StatsCard.vue";
 import LTable from "src/components/Table.vue";
 import UsersService from "src/services/UsersService.js";
-import ApiService from "src/services/api.js";
+import MoviesService from "src/services/MoviesService.js";
 
 export default {
   components: {
@@ -156,9 +140,11 @@ export default {
         email: "",
         password: "",
       },
+      latestMovies: [],
     };
   },
   created() {
+    this.loadLatestMovies();
     // Recupera o userId armazenado no LocalStorage
     const userId = localStorage.getItem("userId");
 
@@ -190,6 +176,20 @@ export default {
         .catch((error) => {
           console.error("Erro ao atualizar os detalhes do usuário:", error);
         });
+    },
+    async loadLatestMovies() {
+      try {
+        const response = await MoviesService.getAllMovies(1, 5);
+        this.latestMovies = response;
+      } catch (error) {
+        console.error("Erro ao carregar os filmes mais recentes:", error);
+      }
+    },
+
+    formatDate(date) {
+      // Função para formatar a data de lançamento (se necessário)
+      // Exemplo: retorna "09/05/1893"
+      return new Date(date).toLocaleDateString();
     },
   },
 };
@@ -233,6 +233,11 @@ export default {
 
 .movieTable {
   width: 100%;
+  margin-bottom: 0;
+}
+
+.movie-title {
+  white-space: nowrap;
 }
 
 table {
@@ -251,7 +256,7 @@ th {
 }
 
 td {
-  padding: 0 3.5rem;
+  padding: 0.45rem 3.5rem;
   text-align: center;
 }
 
@@ -270,5 +275,10 @@ td {
 
 .content {
   background-color: #f8f8f8;
+}
+
+.table-container {
+  max-height: 300px;
+  overflow-y: auto;
 }
 </style>
