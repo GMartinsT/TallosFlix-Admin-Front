@@ -5,14 +5,11 @@
         <div class="col-xl-3 col-md-6">
           <stats-card>
             <div slot="header" class="icon-warning">
-              <i class="nc-icon nc-chart text-warning"></i>
+              <i class="nc-icon nc-single-02 text-warning"></i>
             </div>
             <div slot="content">
-              <p class="card-category">Capacity</p>
-              <h4 class="card-title">105GB</h4>
-            </div>
-            <div slot="footer">
-              <i class="fa fa-refresh"></i>Updated now
+              <p class="card-category">Usuários</p>
+              <h4 class="card-title">{{ usersCount }}</h4>
             </div>
           </stats-card>
         </div>
@@ -20,14 +17,11 @@
         <div class="col-xl-3 col-md-6">
           <stats-card>
             <div slot="header" class="icon-success">
-              <i class="nc-icon nc-light-3 text-success"></i>
+              <i class="nc-icon nc-button-play text-success"></i>
             </div>
             <div slot="content">
-              <p class="card-category">Revenue</p>
-              <h4 class="card-title">$1,345</h4>
-            </div>
-            <div slot="footer">
-              <i class="fa fa-calendar-o"></i>Last day
+              <p class="card-category">Filmes</p>
+              <h4 class="card-title">{{ moviesCount }}</h4>
             </div>
           </stats-card>
         </div>
@@ -35,14 +29,11 @@
         <div class="col-xl-3 col-md-6">
           <stats-card>
             <div slot="header" class="icon-danger">
-              <i class="nc-icon nc-vector text-danger"></i>
+              <i class="nc-icon nc-bank text-danger"></i>
             </div>
             <div slot="content">
-              <p class="card-category">Errors</p>
-              <h4 class="card-title">23</h4>
-            </div>
-            <div slot="footer">
-              <i class="fa fa-clock-o"></i>Last day
+              <p class="card-category">Cinemas</p>
+              <h4 class="card-title">{{ theatersCount }}</h4>
             </div>
           </stats-card>
         </div>
@@ -50,224 +41,283 @@
         <div class="col-xl-3 col-md-6">
           <stats-card>
             <div slot="header" class="icon-info">
-              <i class="nc-icon nc-favourite-28 text-primary"></i>
+              <i class="nc-icon nc-chat-round text-primary"></i>
             </div>
             <div slot="content">
-              <p class="card-category">Followers</p>
-              <h4 class="card-title">+45</h4>
-            </div>
-            <div slot="footer">
-              <i class="fa fa-refresh"></i>Updated now
+              <p class="card-category">Comentários</p>
+              <h4 class="card-title">{{ commentsCount }}</h4>
             </div>
           </stats-card>
         </div>
-
-      </div>
-      <div class="row">
-        <div class="col-md-8">
-          <chart-card :chart-data="lineChart.data"
-                      :chart-options="lineChart.options"
-                      :responsive-options="lineChart.responsiveOptions">
+        <div class="editCard">
+          <card class="editPCard">
             <template slot="header">
-              <h4 class="card-title">Users Behavior</h4>
-              <p class="card-category">24 Hours performance</p>
+              <h3>Meu Perfil:</h3>
             </template>
-            <template slot="footer">
-              <div class="legend">
-                <i class="fa fa-circle text-info"></i> Open
-                <i class="fa fa-circle text-danger"></i> Click
-                <i class="fa fa-circle text-warning"></i> Click Second Time
+            <div>
+              <div class="profileInput">
+                <label for="name">Nome:</label>
+                <input
+                  type="text"
+                  v-model="user.name"
+                  placeholder="user.name"
+                />
               </div>
-              <hr>
-              <div class="stats">
-                <i class="fa fa-history"></i> Updated 3 minutes ago
+              <div class="profileInput">
+                <label for="email">E-mail:</label>
+                <input type="email" v-model="user.email" />
               </div>
-            </template>
-          </chart-card>
-        </div>
-
-        <div class="col-md-4">
-          <chart-card :chart-data="pieChart.data" chart-type="Pie">
-            <template slot="header">
-              <h4 class="card-title">Email Statistics</h4>
-              <p class="card-category">Last Campaign Performance</p>
-            </template>
-            <template slot="footer">
-              <div class="legend">
-                <i class="fa fa-circle text-info"></i> Open
-                <i class="fa fa-circle text-danger"></i> Bounce
-                <i class="fa fa-circle text-warning"></i> Unsubscribe
-              </div>
-              <hr>
-              <div class="stats">
-                <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
-              </div>
-            </template>
-          </chart-card>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <chart-card
-            :chart-data="barChart.data"
-            :chart-options="barChart.options"
-            :chart-responsive-options="barChart.responsiveOptions"
-            chart-type="Bar">
-            <template slot="header">
-              <h4 class="card-title">2014 Sales</h4>
-              <p class="card-category">All products including Taxes</p>
-            </template>
-            <template slot="footer">
-              <div class="legend">
-                <i class="fa fa-circle text-info"></i> Tesla Model S
-                <i class="fa fa-circle text-danger"></i> BMW 5 Series
-              </div>
-              <hr>
-              <div class="stats">
-                <i class="fa fa-check"></i> Data information certified
-              </div>
-            </template>
-          </chart-card>
-        </div>
-
-        <div class="col-md-6">
-          <card>
-            <template slot="header">
-              <h5 class="title">Tasks</h5>
-              <p class="category">Backend development</p>
-            </template>
-            <l-table :data="tableData.data"
-                     :columns="tableData.columns">
-              <template slot="columns"></template>
-
-              <template slot-scope="{row}">
-                <td>
-                  <base-checkbox v-model="row.checked"></base-checkbox>
-                </td>
-                <td>{{row.title}}</td>
-                <td class="td-actions text-right">
-                  <button type="button" class="btn-simple btn btn-xs btn-info" v-tooltip.top-center="editTooltip">
-                    <i class="fa fa-edit"></i>
-                  </button>
-                  <button type="button" class="btn-simple btn btn-xs btn-danger" v-tooltip.top-center="deleteTooltip">
-                    <i class="fa fa-times"></i>
-                  </button>
-                </td>
-              </template>
-            </l-table>
-            <div class="footer">
-              <hr>
-              <div class="stats">
-                <i class="fa fa-history"></i> Updated 3 minutes ago
+              <div class="profileInput">
+                <label for="password">Senha:</label>
+                <input
+                  type="password"
+                  v-model="user.password"
+                  placeholder="Senha do usuário"
+                />
               </div>
             </div>
+            <div class="editBtn">
+              <button class="editProfile" @click="updateUser">Editar</button>
+            </div>
           </card>
-
+        </div>
+        <div class="moviecard">
+          <card class="tableCard">
+            <template slot="header">
+              <h4 class="card-title">Lançamentos:</h4>
+              <p class="card-category">Lista dos filmes mais recentes</p>
+            </template>
+          </card>
+          <div class="table-container">
+            <div class="table-responsive">
+              <table class="movieTable">
+                <thead>
+                  <tr>
+                    <th>Título</th>
+                    <th>Data de Lançamento</th>
+                    <th>Duração</th>
+                    <th>Nota IMDb</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="movie in latestMovies" :key="movie._id">
+                    <td class="movie-title">{{ movie.title }}</td>
+                    <td>{{ formatDate(movie.released) }}</td>
+                    <td>{{ movie.runtime }} min</td>
+                    <td>{{ movie.imdb.rating }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-  import ChartCard from 'src/components/Cards/ChartCard.vue'
-  import StatsCard from 'src/components/Cards/StatsCard.vue'
-  import LTable from 'src/components/Table.vue'
+import Card from "src/components/Cards/Card.vue";
+import StatsCard from "src/components/Cards/StatsCard.vue";
+import LTable from "src/components/Table.vue";
+import UsersService from "src/services/UsersService.js";
+import MoviesService from "src/services/MoviesService.js";
+import TheatersService from "src/services/TheatersService.js";
+import CommentsService from "src/services/CommentsService.js";
 
-  export default {
-    components: {
-      LTable,
-      ChartCard,
-      StatsCard
-    },
-    data () {
-      return {
-        editTooltip: 'Edit Task',
-        deleteTooltip: 'Remove',
-        pieChart: {
-          data: {
-            labels: ['40%', '20%', '40%'],
-            series: [40, 20, 40]
-          }
-        },
-        lineChart: {
-          data: {
-            labels: ['9:00AM', '12:00AM', '3:00PM', '6:00PM', '9:00PM', '12:00PM', '3:00AM', '6:00AM'],
-            series: [
-              [287, 385, 490, 492, 554, 586, 698, 695],
-              [67, 152, 143, 240, 287, 335, 435, 437],
-              [23, 113, 67, 108, 190, 239, 307, 308]
-            ]
-          },
-          options: {
-            low: 0,
-            high: 800,
-            showArea: false,
-            height: '245px',
-            axisX: {
-              showGrid: false
-            },
-            lineSmooth: true,
-            showLine: true,
-            showPoint: true,
-            fullWidth: true,
-            chartPadding: {
-              right: 50
-            }
-          },
-          responsiveOptions: [
-            ['screen and (max-width: 640px)', {
-              axisX: {
-                labelInterpolationFnc (value) {
-                  return value[0]
-                }
-              }
-            }]
-          ]
-        },
-        barChart: {
-          data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            series: [
-              [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
-              [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695]
-            ]
-          },
-          options: {
-            seriesBarDistance: 10,
-            axisX: {
-              showGrid: false
-            },
-            height: '245px'
-          },
-          responsiveOptions: [
-            ['screen and (max-width: 640px)', {
-              seriesBarDistance: 5,
-              axisX: {
-                labelInterpolationFnc (value) {
-                  return value[0]
-                }
-              }
-            }]
-          ]
-        },
-        tableData: {
-          data: [
-            {title: 'Sign contract for "What are conference organizers afraid of?"', checked: false},
-            {title: 'Lines From Great Russian Literature? Or E-mails From My Boss?', checked: true},
-            {
-              title: 'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
-              checked: true
-            },
-            {title: 'Create 4 Invisible User Experiences you Never Knew About', checked: false},
-            {title: 'Read "Following makes Medium better"', checked: false},
-            {title: 'Unfollow 5 enemies from twitter', checked: false}
-          ]
-        }
-      }
+export default {
+  components: {
+    Card,
+    LTable,
+    StatsCard,
+  },
+  data() {
+    return {
+      user: {
+        _id: "",
+        name: "",
+        email: "",
+        password: "",
+      },
+      latestMovies: [],
+      usersCount: 0,
+      moviesCount: 0,
+      theatersCount: 0,
+      commentsCount: 0,
+    };
+  },
+  created() {
+    this.loadLatestMovies();
+    this.loadUsersCount();
+    this.loadMoviesCount();
+    this.loadTheatersCount();
+    this.loadCommentsCount();
+    const userId = localStorage.getItem("userId");
+
+    if (userId) {
+      UsersService.findUserById(userId)
+        .then((response) => {
+          (this.user._id = response.data._id),
+            (this.user.name = response.data.name),
+            (this.user.email = response.data.email),
+            (this.user.password = response.data.password),
+            console.log("Detalhes do usuário:", this.user);
+        })
+        .catch((error) => {
+          console.error("Erro ao obter os detalhes do usuário:", error);
+        });
+    } else {
+      console.warn("UserId não encontrado no LocalStorage.");
     }
-  }
+  },
+  methods: {
+    updateUser() {
+      UsersService.updateUser(this.user._id, this.user)
+        .then((response) => {
+          console.log("Detalhes do usuário atualizados:", response.data);
+        })
+        .catch((error) => {
+          console.error("Erro ao atualizar os detalhes do usuário:", error);
+        });
+    },
+    async loadLatestMovies() {
+      try {
+        const response = await MoviesService.getAllMovies(1, 5);
+        this.latestMovies = response;
+      } catch (error) {
+        console.error("Erro ao carregar os filmes mais recentes:", error);
+      }
+    },
+
+    formatDate(date) {
+      return new Date(date).toLocaleDateString();
+    },
+
+    async loadUsersCount() {
+      try {
+        const response = await UsersService.getUsersCount();
+        this.usersCount = response.data;
+      } catch (error) {
+        console.error("Erro ao obter a contagem de usuários:", error);
+      }
+    },
+
+    async loadMoviesCount() {
+      try {
+        const response = await MoviesService.getMoviesCount();
+        this.moviesCount = response.data;
+      } catch (error) {
+        console.error("Erro ao obter a contagem de filmes:", error);
+      }
+    },
+
+    async loadTheatersCount() {
+      try {
+        const response = await TheatersService.getTheatersCount();
+        this.theatersCount = response.data;
+      } catch (error) {
+        console.error("Erro ao obter a contagem de cinemas:", error);
+      }
+    },
+
+    async loadCommentsCount() {
+      try {
+        const response = await CommentsService.getCommentsCount();
+        this.commentsCount = response.data;
+      } catch (error) {
+        console.error("Erro ao obter a contagem de comentários:", error);
+      }
+    },
+  },
+};
 </script>
 <style>
+.profileInput {
+  display: flex;
+  flex-direction: column;
+}
 
+.editBtn {
+  margin-top: 10px;
+}
+
+.editBtn button {
+  background-color: #525156;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+}
+
+.editBtn button:hover {
+  background-color: #464646;
+}
+
+.moviecard {
+  width: 72.1%;
+}
+
+.editCard {
+  margin-left: 15px;
+  margin-right: 30px;
+  width: 22.2%;
+}
+
+.tableCard {
+  margin-bottom: 0px;
+}
+
+.movieTable {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.movie-title {
+  white-space: nowrap;
+}
+
+table {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+thead {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  background-color: #fff;
+}
+
+th {
+  padding: 0 3.5rem;
+  font-weight: 550;
+  color: #505050;
+  text-align: center;
+}
+
+td {
+  padding: 0.45rem 3.5rem;
+  text-align: center;
+}
+
+.editPCard {
+  padding-bottom: 10px;
+  margin-bottom: 0px;
+}
+
+.navbar-brand {
+  margin-left: 40%;
+}
+
+.navbar-nav {
+  padding-right: 1rem;
+}
+
+.content {
+  background-color: #f8f8f8;
+  padding: 30px 15px 5px;
+  min-height: calc(100% - 147px) !important;
+}
+
+.table-container {
+  max-height: 300px;
+  overflow-y: auto;
+}
 </style>

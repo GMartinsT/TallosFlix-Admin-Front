@@ -14,11 +14,11 @@
     min-height: 50px;
     background-color: $white-navbar;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 5px 15px;
+    padding: 16.25px 15px;
 
     .navbar-brand {
         font-weight: 400;
-        margin: 5px 0px;
+        margin: 5px 380px;
         font-size: 20px;
         color: $default-color;
 
@@ -68,7 +68,6 @@
         .nav-item{
             .nav-link{
                 color: $default-color;
-                padding: $navbar-padding-a;
                 position: relative;
                 display: inline-flex;
                 line-height: 1.2;
