@@ -15,12 +15,25 @@
                 <th>ID</th>
                 <th>Nome</th>
                 <th>Email</th>
+                <th class="actionsth">Ações</th>
               </template>
               <template>
                 <tr v-for="(user, index) in users" :key="index">
                   <td>{{ user._id }}</td>
-                  <td>{{ user.name }}</td>
+                  <td class="user-name">{{ user.name }}</td>
                   <td>{{ user.email }}</td>
+                  <td class="actionstd">
+                    <i
+                      class="fas fa-pencil edit-icon"
+                      @click="editUser(user._id)"
+                      style="cursor: pointer; margin-right: 10px"
+                    ></i>
+                    <i
+                      class="fas fa-trash delete-icon"
+                      @click="deleteUser(user._id)"
+                      style="cursor: pointer"
+                    ></i>
+                  </td>
                 </tr>
               </template>
             </generic-table>
@@ -59,6 +72,21 @@ export default {
           console.error("Erro ao obter a lista de usuários:", error);
         });
     },
+
+    editUser(id) {
+      this.$router.push({ name: "User", params: { id: id } });
+    },
+
+    deleteUser(id) {
+      UsersService.deleteUser(id)
+        .then(() => {
+          console.log("Usuário deletado com sucesso.");
+          this.getUsers();
+        })
+        .catch((error) => {
+          console.error("Erro ao deletar usuário:", error);
+        });
+    },
   },
 };
 </script>
@@ -69,5 +97,24 @@ export default {
 }
 th {
   text-align: center !important;
+}
+
+.actionstd,
+.actionsth {
+  width: 10% !important;
+}
+
+.user-name {
+  white-space: nowrap;
+}
+
+.edit-icon:hover {
+  color: rgb(0, 88, 207);
+  transform: scale(1.2);
+}
+
+.delete-icon:hover {
+  color: red;
+  transform: scale(1.2);
 }
 </style>

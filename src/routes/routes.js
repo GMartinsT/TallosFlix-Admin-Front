@@ -3,9 +3,9 @@ import DashboardLayout from '../layout/DashboardLayout.vue'
 import NotFound from '../pages/NotFoundPage.vue'
 
 // Admin pages
-import Overview from 'src/pages/Overview.vue'
+import Homepage from 'src/pages/Homepage.vue'
 import UserProfile from 'src/pages/UserProfile.vue'
-import TableList from 'src/pages/TableList.vue'
+import UsersList from 'src/pages/UsersList.vue'
 import Typography from 'src/pages/Typography.vue'
 import Icons from 'src/pages/Icons.vue'
 import Maps from 'src/pages/Maps.vue'
@@ -26,22 +26,23 @@ const routes = [
   {
     path: '/admin',
     component: DashboardLayout,
-    redirect: '/admin/overview',
+    redirect: '/admin/homepage',
     children: [
       {
-        path: 'overview',
-        name: 'Overview',
-        component: Overview
+        path: 'homepage',
+        name: 'Homepage',
+        component: Homepage
       },
       {
-        path: 'user',
+        path: 'user/:id',
         name: 'User',
-        component: UserProfile
+        component: UserProfile,
+        props: true
       },
       {
         path: 'users',
-        name: 'Table List',
-        component: TableList
+        name: 'Users List',
+        component: UsersList
       },
       {
         path: 'typography',

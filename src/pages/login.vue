@@ -44,7 +44,7 @@ export default {
           store.commit("setToken", response.access_token); // Salvar o token no Vuex Store
           store.commit("setUserId", response.session.user_id);
 
-          location.replace("/#/admin/overview");
+          location.replace("/#/admin/homepage");
           console.log("Login bem-sucedido!");
         } else {
           console.log("Credenciais inválidas");
