@@ -9,7 +9,7 @@ import UsersList from 'src/pages/UsersList.vue'
 import MoviesList from 'src/pages/MoviesList.vue'
 import Icons from 'src/pages/Icons.vue'
 import Maps from 'src/pages/Maps.vue'
-import Notifications from 'src/pages/Notifications.vue'
+import MovieForm from 'src/pages/MovieForm.vue'
 import Upgrade from 'src/pages/Upgrade.vue'
 import Login from 'src/pages/login.vue'
 
@@ -60,9 +60,9 @@ const routes = [
         component: Maps
       },
       {
-        path: 'notifications',
-        name: 'Notifications',
-        component: Notifications
+        path: 'movie/:id',
+        name: 'Movie',
+        component: MovieForm
       },
       {
         path: 'upgrade',
