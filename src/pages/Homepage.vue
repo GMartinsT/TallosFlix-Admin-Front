@@ -238,18 +238,20 @@ export default {
 
 .editBtn {
   margin-top: 10px;
+  padding: 0;
 }
 
-.editBtn button {
+.editProfile {
   background-color: #525156;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   outline: none;
+  width: 13rem;
 }
 
-.editBtn button:hover {
+.editProfile:hover {
   background-color: #464646;
 }
 

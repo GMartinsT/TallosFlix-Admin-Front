@@ -6,10 +6,10 @@ import NotFound from '../pages/NotFoundPage.vue'
 import Homepage from 'src/pages/Homepage.vue'
 import UserProfile from 'src/pages/UserProfile.vue'
 import UsersList from 'src/pages/UsersList.vue'
-import Typography from 'src/pages/Typography.vue'
+import MoviesList from 'src/pages/MoviesList.vue'
 import Icons from 'src/pages/Icons.vue'
 import Maps from 'src/pages/Maps.vue'
-import Notifications from 'src/pages/Notifications.vue'
+import MovieForm from 'src/pages/MovieForm.vue'
 import Upgrade from 'src/pages/Upgrade.vue'
 import Login from 'src/pages/login.vue'
 
@@ -45,9 +45,9 @@ const routes = [
         component: UsersList
       },
       {
-        path: 'typography',
-        name: 'Typography',
-        component: Typography
+        path: 'movies',
+        name: 'Movies List',
+        component: MoviesList
       },
       {
         path: 'icons',
@@ -60,9 +60,9 @@ const routes = [
         component: Maps
       },
       {
-        path: 'notifications',
-        name: 'Notifications',
-        component: Notifications
+        path: 'movie/:id',
+        name: 'Movie',
+        component: MovieForm
       },
       {
         path: 'upgrade',
