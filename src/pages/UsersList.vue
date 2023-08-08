@@ -73,7 +73,9 @@ export default {
         });
     },
 
-    editUser() {},
+    editUser(id) {
+      this.$router.push({ name: "User", params: { id: id } });
+    },
 
     deleteUser(id) {
       UsersService.deleteUser(id)

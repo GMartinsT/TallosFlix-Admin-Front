@@ -34,9 +34,10 @@ const routes = [
         component: Homepage
       },
       {
-        path: 'user',
+        path: 'user/:id',
         name: 'User',
-        component: UserProfile
+        component: UserProfile,
+        props: true
       },
       {
         path: 'users',
