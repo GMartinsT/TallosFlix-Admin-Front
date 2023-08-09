@@ -10,7 +10,7 @@ import MoviesList from 'src/pages/MoviesList.vue'
 import Icons from 'src/pages/Icons.vue'
 import Maps from 'src/pages/Maps.vue'
 import MovieForm from 'src/pages/MovieForm.vue'
-import Upgrade from 'src/pages/Upgrade.vue'
+import ReportsPage from 'src/pages/ReportsPage.vue'
 import Login from 'src/pages/login.vue'
 
 const routes = [
@@ -65,9 +65,9 @@ const routes = [
         component: MovieForm
       },
       {
-        path: 'upgrade',
-        name: 'Upgrade to PRO',
-        component: Upgrade
+        path: 'reports',
+        name: 'Reports',
+        component: ReportsPage
       }
     ]
   },
