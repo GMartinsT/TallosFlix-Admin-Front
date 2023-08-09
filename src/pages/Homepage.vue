@@ -238,7 +238,7 @@ export default {
 
 .editBtn {
   margin-top: 10px;
-  padding: 0;
+  padding: 0 !important;
 }
 
 .editProfile {
@@ -321,5 +321,9 @@ td {
 .table-container {
   max-height: 300px;
   overflow-y: auto;
+}
+
+.card-body {
+  margin-bottom: 3px;
 }
 </style>
