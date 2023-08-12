@@ -10,33 +10,13 @@
             </template>
           </card>
           <div>
-            <generic-table>
-              <template v-slot:header>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th class="actionsth">Ações</th>
-              </template>
-              <template>
-                <tr v-for="(user, index) in users" :key="index">
-                  <td>{{ user._id }}</td>
-                  <td class="user-name">{{ user.name }}</td>
-                  <td>{{ user.email }}</td>
-                  <td class="actionstd">
-                    <i
-                      class="fas fa-pencil edit-icon"
-                      @click="editUser(user._id)"
-                      style="cursor: pointer; margin-right: 10px"
-                    ></i>
-                    <i
-                      class="fas fa-trash delete-icon"
-                      @click="deleteUser(user._id)"
-                      style="cursor: pointer"
-                    ></i>
-                  </td>
-                </tr>
-              </template>
-            </generic-table>
+            <GenericTable
+              :getData="getUsers"
+              :columns="columns"
+              :actionColumn="actionColumn"
+              :reload="reloadCount"
+            >
+            </GenericTable>
           </div>
         </div>
       </div>
@@ -56,21 +36,31 @@ export default {
   data() {
     return {
       users: [],
+      columns: [
+        { key: "_id", title: "ID" },
+        { key: "name", title: "Nome" },
+        { key: "email", title: "E-mail" },
+        { key: "actions", title: "Ações" },
+      ],
+      actionColumn: [
+        {
+          icon: "fas fa-pencil",
+          click: this.editUser,
+        },
+        {
+          icon: "fas fa-trash",
+          click: this.deleteUser,
+        },
+      ],
+      reloadCount: 0,
     };
   },
   created() {
-    this.getUsers();
+    //this.getUsers();
   },
   methods: {
-    getUsers() {
-      UsersService.findAll()
-        .then((response) => {
-          this.users = response.data;
-          console.log("Usuários obtidos:", this.users);
-        })
-        .catch((error) => {
-          console.error("Erro ao obter a lista de usuários:", error);
-        });
+    getUsers(page) {
+      return UsersService.findAll(page);
     },
 
     editUser(id) {
@@ -81,7 +71,7 @@ export default {
       UsersService.deleteUser(id)
         .then(() => {
           console.log("Usuário deletado com sucesso.");
-          this.getUsers();
+          this.reloadCount++;
         })
         .catch((error) => {
           console.error("Erro ao deletar usuário:", error);
