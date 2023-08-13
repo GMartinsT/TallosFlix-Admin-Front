@@ -3,14 +3,22 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th v-for="column in columns" :key="column.key">
+          <th
+            v-for="column in columns"
+            :key="column.key"
+            :class="column.class ?? ''"
+          >
             {{ column.title }}
           </th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in data.data" :key="item">
-          <td v-for="column in columns" :key="column.key">
+          <td
+            v-for="column in columns"
+            :key="column.key"
+            :class="column.class ?? ''"
+          >
             <div class="actionColumn" v-if="column.key === 'actions'">
               <i
                 v-for="(action, index) in actionColumn"
@@ -72,8 +80,6 @@
 </template>
 
 <script>
-import { watch } from "vue";
-
 export default {
   name: "GenericTable",
 

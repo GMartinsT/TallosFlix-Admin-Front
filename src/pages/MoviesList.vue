@@ -10,35 +10,13 @@
             </template>
           </card>
           <div>
-            <generic-table>
-              <template v-slot:header>
-                <th>ID</th>
-                <th>Título</th>
-                <th>Gênero</th>
-                <th>Data de Lançamento</th>
-                <th class="actionsth">Ações</th>
-              </template>
-              <template>
-                <tr v-for="(movie, index) in movies" :key="index">
-                  <td>{{ movie._id }}</td>
-                  <td class="movie-title">{{ movie.title }}</td>
-                  <td>{{ getTranslatedGenres(movie.genres).join(", ") }}</td>
-                  <td>{{ formatDate(movie.released) }}</td>
-                  <td class="actionstd">
-                    <i
-                      class="fas fa-search-plus search-icon"
-                      @click="editMovie(movie._id)"
-                      style="cursor: pointer; margin-right: 10px"
-                    ></i>
-                    <i
-                      class="fas fa-trash delete-icon"
-                      @click="deleteMovie(movie._id)"
-                      style="cursor: pointer"
-                    ></i>
-                  </td>
-                </tr>
-              </template>
-            </generic-table>
+            <GenericTable
+              :getData="getMovies"
+              :columns="columns"
+              :actionColumn="actionColumn"
+              :reload="reloadCount"
+            >
+            </GenericTable>
           </div>
         </div>
       </div>
@@ -58,48 +36,29 @@ export default {
   data() {
     return {
       movies: [],
-      genreMapping: {
-        Sport: "Esporte",
-        Romance: "Romance",
-        Action: "Ação",
-        Drama: "Drama",
-        Comedy: "Comédia",
-        History: "História",
-        Biography: "Biografia",
-        Animation: "Animação",
-        Music: "Música",
-        Horror: "Terror",
-        Thriller: "Suspense",
-        Fantasy: "Fantasia",
-        "Sci-Fi": "Ficção Científica",
-        War: "Guerra",
-        Musical: "Musical",
-        "Film-Noir": "Film Noir",
-        News: "Notícias",
-        Western: "Faroeste",
-        Documentary: "Documentário",
-        "Talk-Show": "Talk Show",
-        Short: "Curta-metragem",
-        Crime: "Crime",
-        Mystery: "Mistério",
-        Adventure: "Aventura",
-        Family: "Família",
-      },
+      columns: [
+        { key: "_id", title: "ID" },
+        { key: "title", title: "Título", class: "movie-title" },
+        { key: "genres", title: "Gênero" },
+        { key: "released", title: "Data de Lançamento" },
+        { key: "actions", title: "Ações", class: "actions" },
+      ],
+      actionColumn: [
+        {
+          icon: "fas fa-search-plus",
+          click: this.editMovie,
+        },
+        {
+          icon: "fas fa-trash",
+          click: this.deleteMovie,
+        },
+      ],
+      reloadCount: 0,
     };
   },
-  created() {
-    this.getMovies();
-  },
   methods: {
-    getMovies() {
-      MoviesService.getAllMovies()
-        .then((response) => {
-          this.movies = response;
-          console.log("Filmes obtidos:", this.movies);
-        })
-        .catch((error) => {
-          console.error("Erro ao obter a lista de filmes:", error);
-        });
+    getMovies(page) {
+      return MoviesService.getAllMovies(page);
     },
 
     editMovie(id) {
@@ -136,8 +95,7 @@ th {
   text-align: center !important;
 }
 
-.actionstd,
-.actionsth {
+.actions {
   width: 10% !important;
 }
 

@@ -38,9 +38,9 @@ export default {
       users: [],
       columns: [
         { key: "_id", title: "ID" },
-        { key: "name", title: "Nome" },
+        { key: "name", title: "Nome", class: "user-name" },
         { key: "email", title: "E-mail" },
-        { key: "actions", title: "Ações" },
+        { key: "actions", title: "Ações", class: "actions" },
       ],
       actionColumn: [
         {
@@ -54,9 +54,6 @@ export default {
       ],
       reloadCount: 0,
     };
-  },
-  created() {
-    //this.getUsers();
   },
   methods: {
     getUsers(page) {
@@ -87,11 +84,6 @@ export default {
 }
 th {
   text-align: center !important;
-}
-
-.actionstd,
-.actionsth {
-  width: 10% !important;
 }
 
 .user-name {
