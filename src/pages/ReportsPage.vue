@@ -10,26 +10,13 @@
             </template>
           </card>
           <div class="table-responsive">
-            <generic-table class="table table-striped">
-              <template v-slot:header>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Movie ID</th>
-                <th>Data</th>
-                <th>Comentário</th>
-              </template>
-              <template>
-                <tr v-for="(comment, index) in comments" :key="index">
-                  <td>{{ comment._id }}</td>
-                  <td class="user-name">{{ comment.name }}</td>
-                  <td>{{ comment.email }}</td>
-                  <td>{{ comment.movie_id }}</td>
-                  <td>{{ formatDate(comment.date) }}</td>
-                  <td class="commenttd">{{ comment.text }}</td>
-                </tr>
-              </template>
-            </generic-table>
+            <GenericTable
+              :getData="getComments"
+              :columns="columns"
+              :actionColumn="actionColumn"
+              :reload="reloadCount"
+            >
+            </GenericTable>
           </div>
           <card>
             <template slot="header">
@@ -56,6 +43,11 @@
         </div>
       </div>
     </div>
+    <CommentPopup
+      v-if="showPopup"
+      :commentText="selectedCommentText"
+      :closePopup="closePopup"
+    />
   </div>
 </template>
 
@@ -64,32 +56,52 @@ import CommentsService from "src/services/CommentsService.js";
 import Card from "src/components/Cards/Card.vue";
 import GenericTable from "src/components/GenericTable.vue";
 import SessionsService from "src/services/SessionsService.js";
+import CommentPopup from "src/components/CommentPopup.vue";
 
 export default {
   components: {
     Card,
     GenericTable,
+    CommentPopup,
   },
   data() {
     return {
       comments: [],
       sessions: [],
+      columns: [
+        { key: "_id", title: "ID" },
+        { key: "name", title: "Nome" },
+        { key: "email", title: "E-mail" },
+        { key: "movie_id", title: "Filme", class: "actions" },
+        { key: "date", title: "Data" },
+        { key: "actions", title: "Ações", class: "actions" },
+      ],
+      actionColumn: [
+        {
+          icon: "fas fa-search-plus",
+          click: this.showComment,
+        },
+      ],
+      reloadCount: 0,
+      showPopup: false,
+      selectedCommentText: "",
     };
   },
-  created() {
-    this.getComments();
-    this.getSessions();
-  },
   methods: {
-    getComments() {
-      CommentsService.getAllComments()
-        .then((response) => {
-          this.comments = response;
-          console.log("Comentários obtidos:", this.comments);
-        })
-        .catch((error) => {
-          console.error("Erro ao obter a lista de comentários:", error);
-        });
+    getComments(page) {
+      return CommentsService.getAllComments(page);
+    },
+    async showComment(commentId) {
+      try {
+        const comment = await CommentsService.getCommentById(commentId);
+        this.selectedCommentText = comment.text;
+        this.showPopup = true;
+      } catch (error) {
+        console.error("Erro ao obter detalhes do comentário:", error);
+      }
+    },
+    closePopup() {
+      this.showPopup = false;
     },
     getSessions() {
       SessionsService.getAllSessions()

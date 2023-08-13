@@ -1,18 +1,8 @@
 import { ApiService } from "./api.js";
 
 export default {
-  async getAllMovies(page = 1, perPage = 10) {
-    try {
-      const response = await ApiService.get("/movies", {
-        params: {
-          page,
-          perPage,
-        },
-      });
-      return response.data;
-    } catch (error) {
-      throw new Error("Erro ao obter a lista de filmes.");
-    }
+  getAllMovies(page) {
+    return ApiService.get(`/movies?page=${page}`);
   },
 
   async getMovieById(id) {
