@@ -76,10 +76,6 @@ export default {
         });
     },
 
-    formatDate(date) {
-      return new Date(date).toLocaleDateString();
-    },
-
     getTranslatedGenres(genres) {
       return genres.map((genre) => this.genreMapping[genre] || genre);
     },

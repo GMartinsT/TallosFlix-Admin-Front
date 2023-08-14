@@ -20,14 +20,11 @@ import store from "src/store/store.js";
 export default {
   methods: {
     logout() {
-      // Chame a ação logoutUser do Vuex para limpar os dados do usuário e token
       store.dispatch("logoutUser");
 
-      // Remova os dados do localStorage
       localStorage.removeItem("userId");
       localStorage.removeItem("access_token");
 
-      // Redirecione o usuário para a página de login
       this.$router.push("/login");
     },
   },

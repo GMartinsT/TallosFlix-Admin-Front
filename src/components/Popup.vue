@@ -2,10 +2,10 @@
   <div class="comment-popup">
     <div class="popup-content">
       <div class="popup-header">
-        <h3 class="popup-label">Comentário</h3>
+        <h3 class="popup-label">{{ popupTitle }}</h3>
       </div>
       <div class="popup-body">
-        {{ commentText }}
+        {{ popupText }}
       </div>
       <div class="popup-footer">
         <button @click="closePopup">Fechar</button>
@@ -17,7 +17,8 @@
 <script>
 export default {
   props: {
-    commentText: String,
+    popupTitle: String,
+    popupText: String,
     closePopup: Function,
   },
 };
