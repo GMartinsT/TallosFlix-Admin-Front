@@ -113,7 +113,7 @@ export default {
 
 .sbmtBtn {
   padding: 5px 20px;
-  background-color: #3472f7;
+  background-color: #525156;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -125,5 +125,6 @@ export default {
 
 .sbmtBtn:hover {
   transform: scale(1.05);
+  background-color: #464646;
 }
 </style>
