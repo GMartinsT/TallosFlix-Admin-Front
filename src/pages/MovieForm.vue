@@ -267,7 +267,7 @@
                 <button
                   v-if="!isEditMode"
                   @click="isEditMode = true"
-                  class="editBtn"
+                  class="editFormBtn"
                 >
                   Editar Filme
                 </button>
@@ -356,7 +356,7 @@ export default {
 
 .sbmtBtn {
   padding: 5px 20px;
-  background-color: #3472f7;
+  background-color: #2e66df;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -366,9 +366,9 @@ export default {
   font-weight: bold;
 }
 
-.editBtn {
+.editFormBtn {
   padding: 5px 20px;
-  background-color: #6c757d;
+  background-color: #525156;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -378,8 +378,13 @@ export default {
   font-weight: bold;
 }
 
-.sbmtBtn:hover,
-.editBtn:hover {
+.sbmtBtn:hover {
   transform: scale(1.05);
+  background-color: #1a4fc0;
+}
+
+.editFormBtn:hover {
+  transform: scale(1.05);
+  background-color: #464646;
 }
 </style>

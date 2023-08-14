@@ -69,16 +69,16 @@ export default {
 
 .popup-footer button {
   color: #f1f1f1;
-  border: 2px solid #7c7c7c;
-  background-color: #7c7c7c;
+  border: 2px solid #525156;
+  background-color: #525156;
   border-radius: 4px;
   font-weight: bold;
 }
 
 .popup-footer button:hover {
   color: #f1f1f1;
-  border: 2px solid #565656;
-  background-color: #565656;
+  border: 2px solid #464646;
+  background-color: #464646;
   border-radius: 4px;
   font-weight: bold;
   transform: scale(1.05);

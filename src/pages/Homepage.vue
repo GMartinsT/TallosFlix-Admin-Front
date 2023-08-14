@@ -250,10 +250,12 @@ export default {
   cursor: pointer;
   outline: none;
   width: 13rem;
+  font-weight: bold;
 }
 
 .editProfile:hover {
   background-color: #464646;
+  transform: scale(1.05);
 }
 
 .moviecard {
@@ -301,7 +303,7 @@ td {
 }
 
 .editPCard {
-  padding-bottom: 10px;
+  padding-bottom: 8px;
   margin-bottom: 0px;
 }
 
