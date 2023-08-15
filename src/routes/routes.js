@@ -7,11 +7,10 @@ import Homepage from 'src/pages/Homepage.vue'
 import UserProfile from 'src/pages/UserProfile.vue'
 import UsersList from 'src/pages/UsersList.vue'
 import MoviesList from 'src/pages/MoviesList.vue'
-import Icons from 'src/pages/Icons.vue'
-import Maps from 'src/pages/Maps.vue'
+import TheatersList from 'src/pages/TheatersList.vue'
 import MovieForm from 'src/pages/MovieForm.vue'
 import ReportsPage from 'src/pages/ReportsPage.vue'
-import Login from 'src/pages/login.vue'
+import Login from 'src/pages/Login.vue'
 
 const routes = [
   {
@@ -50,14 +49,9 @@ const routes = [
         component: MoviesList
       },
       {
-        path: 'icons',
-        name: 'Icons',
-        component: Icons
-      },
-      {
-        path: 'maps',
-        name: 'Maps',
-        component: Maps
+        path: 'theaters',
+        name: 'Theaters List',
+        component: TheatersList
       },
       {
         path: 'movie/:id',
