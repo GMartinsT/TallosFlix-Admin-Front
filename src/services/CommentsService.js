@@ -1,18 +1,8 @@
 import { ApiService } from "./api.js";
 
 export default {
-  async getAllComments(page = 1, perPage = 10) {
-    try {
-      const response = await ApiService.get("/comments", {
-        params: {
-          page,
-          perPage,
-        },
-      });
-      return response.data;
-    } catch (error) {
-      throw new Error("Erro ao obter a lista de comentários.");
-    }
+  async getAllComments(page = 1) {
+    return ApiService.get(`/comments?page=${page}`);
   },
 
   async getCommentById(id) {

@@ -2,8 +2,8 @@ import { ApiService } from "./api";
 
 export default {
   
-  findAll() {
-    return ApiService.get("/users");
+  findAll(page) {
+    return ApiService.get(`/users?page=${page}`);
   },
 
   

@@ -19,6 +19,7 @@ import App from './App.vue'
 import store from './store/store'
 import Vuex from "vuex"
 
+import '@fortawesome/fontawesome-free/css/all.css';
 // LightBootstrap plugin
 import LightBootstrap from './light-bootstrap-main'
 

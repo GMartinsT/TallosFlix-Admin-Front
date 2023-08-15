@@ -3,15 +3,14 @@ import DashboardLayout from '../layout/DashboardLayout.vue'
 import NotFound from '../pages/NotFoundPage.vue'
 
 // Admin pages
-import Overview from 'src/pages/Overview.vue'
+import Homepage from 'src/pages/Homepage.vue'
 import UserProfile from 'src/pages/UserProfile.vue'
-import TableList from 'src/pages/TableList.vue'
-import Typography from 'src/pages/Typography.vue'
-import Icons from 'src/pages/Icons.vue'
-import Maps from 'src/pages/Maps.vue'
-import Notifications from 'src/pages/Notifications.vue'
-import Upgrade from 'src/pages/Upgrade.vue'
-import Login from 'src/pages/login.vue'
+import UsersList from 'src/pages/UsersList.vue'
+import MoviesList from 'src/pages/MoviesList.vue'
+import TheatersList from 'src/pages/TheatersList.vue'
+import MovieForm from 'src/pages/MovieForm.vue'
+import ReportsPage from 'src/pages/ReportsPage.vue'
+import Login from 'src/pages/Login.vue'
 
 const routes = [
   {
@@ -26,47 +25,43 @@ const routes = [
   {
     path: '/admin',
     component: DashboardLayout,
-    redirect: '/admin/overview',
+    redirect: '/admin/homepage',
     children: [
       {
-        path: 'overview',
-        name: 'Overview',
-        component: Overview
+        path: 'homepage',
+        name: 'Homepage',
+        component: Homepage
       },
       {
-        path: 'user',
+        path: 'user/:id',
         name: 'User',
-        component: UserProfile
+        component: UserProfile,
+        props: true
       },
       {
         path: 'users',
-        name: 'Table List',
-        component: TableList
+        name: 'Users List',
+        component: UsersList
       },
       {
-        path: 'typography',
-        name: 'Typography',
-        component: Typography
+        path: 'movies',
+        name: 'Movies List',
+        component: MoviesList
       },
       {
-        path: 'icons',
-        name: 'Icons',
-        component: Icons
+        path: 'theaters',
+        name: 'Theaters List',
+        component: TheatersList
       },
       {
-        path: 'maps',
-        name: 'Maps',
-        component: Maps
+        path: 'movie/:id',
+        name: 'Movie',
+        component: MovieForm
       },
       {
-        path: 'notifications',
-        name: 'Notifications',
-        component: Notifications
-      },
-      {
-        path: 'upgrade',
-        name: 'Upgrade to PRO',
-        component: Upgrade
+        path: 'reports',
+        name: 'Reports',
+        component: ReportsPage
       }
     ]
   },

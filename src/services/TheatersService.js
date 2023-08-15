@@ -1,27 +1,12 @@
 import { ApiService } from "./api.js";
 
 export default {
-  async getAllTheaters(page = 1, perPage = 10) {
-    try {
-      const response = await ApiService.get("/theaters", {
-        params: {
-          page,
-          perPage,
-        },
-      });
-      return response.data;
-    } catch (error) {
-      throw new Error("Erro ao obter a lista de cinemas.");
-    }
+  async getAllTheaters(page = 1) {
+    return ApiService.get(`/theaters?page=${page}`);
   },
 
   async getTheaterById(id) {
-    try {
-      const response = await ApiService.get(`/theaters/${id}`);
-      return response.data;
-    } catch (error) {
-      throw new Error("Erro ao obter detalhes do cinema.");
-    }
+    return ApiService.get(`/theaters/${id}`);
   },
 
   async createTheater(theaterData) {

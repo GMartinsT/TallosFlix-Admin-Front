@@ -102,7 +102,7 @@
                 <tbody>
                   <tr v-for="movie in latestMovies" :key="movie._id">
                     <td class="movie-title">{{ movie.title }}</td>
-                    <td>{{ formatDate(movie.released) }}</td>
+                    <td>{{ movie.released }}</td>
                     <td>{{ movie.runtime }} min</td>
                     <td>{{ movie.imdb.rating }}</td>
                   </tr>
@@ -181,8 +181,9 @@ export default {
     },
     async loadLatestMovies() {
       try {
-        const response = await MoviesService.getAllMovies(1, 5);
-        this.latestMovies = response;
+        const response = await MoviesService.getAllMovies(1);
+        this.latestMovies = response.data.data.slice(0, 5);
+        console.log(this.latestMovies);
       } catch (error) {
         console.error("Erro ao carregar os filmes mais recentes:", error);
       }
@@ -238,19 +239,23 @@ export default {
 
 .editBtn {
   margin-top: 10px;
+  padding: 0 !important;
 }
 
-.editBtn button {
+.editProfile {
   background-color: #525156;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   outline: none;
+  width: 13rem;
+  font-weight: bold;
 }
 
-.editBtn button:hover {
+.editProfile:hover {
   background-color: #464646;
+  transform: scale(1.05);
 }
 
 .moviecard {
@@ -298,7 +303,7 @@ td {
 }
 
 .editPCard {
-  padding-bottom: 10px;
+  padding-bottom: 8px;
   margin-bottom: 0px;
 }
 
@@ -319,5 +324,9 @@ td {
 .table-container {
   max-height: 300px;
   overflow-y: auto;
+}
+
+.card-body {
+  margin-bottom: 3px;
 }
 </style>
