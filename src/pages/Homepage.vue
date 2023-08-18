@@ -337,4 +337,8 @@ td {
 .editPCard .card-header {
   padding: 6px 15px 7px 15px !important;
 }
+
+.card .card-body {
+  padding: 15px 15px 17px 15px;
+}
 </style>
