@@ -15,6 +15,8 @@
               :columns="columns"
               :actionColumn="actionColumn"
               :reload="reloadCount"
+              :getSearch="searchTheaters"
+              :getById="searchById"
             >
             </GenericTable>
           </div>
@@ -76,10 +78,6 @@ export default {
         { key: "actions", title: "Ações", class: "actions" },
       ],
       actionColumn: [
-        {
-          icon: "fas fa-search-plus",
-          click: this.editTheater,
-        },
         {
           icon: "fas fa-map",
           click: this.showInMap,
@@ -198,6 +196,27 @@ export default {
         .catch((error) => {
           console.error("Erro ao deletar cinema:", error);
         });
+    },
+
+    async searchTheaters(page, searchType, searchQuery) {
+      try {
+        const result = await TheatersService.searchTheaters(
+          page,
+          searchType,
+          searchQuery
+        );
+        console.log(result.data);
+        return result;
+      } catch (error) {
+        console.error("Erro ao buscar cinema:", error);
+      }
+    },
+
+    async searchById(searchQuery) {
+      const result = await TheatersService.searchTheaterById(searchQuery);
+      const data = result.data.data;
+      console.log(data);
+      return data;
     },
   },
 };

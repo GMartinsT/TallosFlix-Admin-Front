@@ -15,6 +15,8 @@
               :columns="columns"
               :actionColumn="actionColumn"
               :reload="reloadCount"
+              :getSearch="searchUsers"
+              :getById="searchById"
             >
             </GenericTable>
           </div>
@@ -74,6 +76,20 @@ export default {
           console.error("Erro ao deletar usuário:", error);
         });
     },
+
+    searchUsers(page, searchType, searchQuery) {
+      return UsersService.searchUsers(page, searchType, searchQuery);
+    },
+
+    async searchById(searchQuery) {
+      const result = await UsersService.findUserById(searchQuery);
+      const data = [result.data];
+      console.log(data);
+      return data;
+    },
+  },
+  mounted() {
+    console.log(this.users, "ANTES");
   },
 };
 </script>
@@ -98,5 +114,43 @@ th {
 .delete-icon:hover {
   color: red;
   transform: scale(1.2);
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.search-input {
+  flex-grow: 1;
+  padding: 5px;
+  border: none;
+}
+
+.search-icon {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.search-icon i {
+  font-size: 16px;
+}
+.search-box {
+  display: flex;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 4px;
+  padding-right: 5px;
+}
+
+select {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 4px;
+  height: 2.3rem;
+  margin-right: 5px;
+  outline: none;
 }
 </style>

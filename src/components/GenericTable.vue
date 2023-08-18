@@ -1,5 +1,28 @@
 <template>
   <div>
+    <div class="search-bar">
+      <select v-model="searchType">
+        <option value="abc" disabled>Filtros:</option>
+        <option
+          v-for="column in columns.slice(0, -1)"
+          :key="column.key"
+          :value="column.key"
+        >
+          {{ column.title }}
+        </option>
+      </select>
+      <div class="search-box">
+        <input
+          v-model="searchQuery"
+          placeholder="Pesquisar"
+          class="search-input"
+          @change="search"
+        />
+        <span class="search-icon" @click="search">
+          <i class="fas fa-search"></i>
+        </span>
+      </div>
+    </div>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -91,6 +114,8 @@ export default {
       },
       perPage: 10,
       currentPage: 1,
+      searchQuery: "",
+      searchType: "abc",
     };
   },
 
@@ -99,6 +124,8 @@ export default {
     getData: Function,
     actionColumn: Array,
     reload: Number,
+    getSearch: Function,
+    getById: Function,
   },
 
   watch: {
@@ -122,6 +149,26 @@ export default {
         .catch((error) => {
           console.error("Erro ao obter a lista de usuários:", error);
         });
+    },
+    search() {
+      if (this.searchQuery === "") {
+        this.searchType = "abc";
+        this.getList(1);
+      }
+      if (this.searchType === "_id") {
+        this.getById(this.searchQuery).then((response) => {
+          this.data.data = response;
+        });
+      } else {
+        this.getSearch(1, this.searchType, this.searchQuery)
+          .then((response) => {
+            this.data = response.data;
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.error("Erro ao obter a busca de usuários:", error);
+          });
+      }
     },
   },
 
