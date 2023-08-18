@@ -8,7 +8,7 @@ export default {
 
   
   findUserById(userId) {
-    return ApiService.get(`/users/${userId}`);
+    return ApiService.get(`/users/id/${userId}`);
   },
 
   
@@ -22,10 +22,18 @@ export default {
   },
 
   deleteUser(userId) {
-    return ApiService.delete(`/users/${userId}`);
+    return ApiService.delete(`/users/id/${userId}`);
   },
 
   getUsersCount() {
     return ApiService.get('/users/count/allusers');
   },
+
+  findUserByEmail(email) {
+    return ApiService.get(`/users/email/${email}`);
+  },
+  
+  searchUsers(page, searchType, searchQuery) {
+    return ApiService.get(`/users/search?page=${page}&searchType=${searchType}&searchQuery=${searchQuery}`)
+  }
 };

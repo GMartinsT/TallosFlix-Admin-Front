@@ -15,6 +15,8 @@
               :columns="columns"
               :actionColumn="actionColumn"
               :reload="reloadCount"
+              :getSearch="searchMovies"
+              :getById="searchById"
             >
             </GenericTable>
           </div>
@@ -78,6 +80,16 @@ export default {
 
     getTranslatedGenres(genres) {
       return genres.map((genre) => this.genreMapping[genre] || genre);
+    },
+
+    searchMovies(page, searchType, searchQuery) {
+      return MoviesService.searchMovies(page, searchType, searchQuery);
+    },
+
+    async searchById(searchQuery) {
+      const result = await MoviesService.searchMovieById(searchQuery);
+      console.log("LISTAAAAAAAAAAAAAAA", result);
+      return result;
     },
   },
 };

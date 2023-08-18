@@ -235,6 +235,11 @@ export default {
 .profileInput {
   display: flex;
   flex-direction: column;
+  margin-bottom: 12.5px;
+}
+
+.profileInput label {
+  margin-bottom: 0px;
 }
 
 .editBtn {
@@ -303,7 +308,6 @@ td {
 }
 
 .editPCard {
-  padding-bottom: 8px;
   margin-bottom: 0px;
 }
 
@@ -326,7 +330,11 @@ td {
   overflow-y: auto;
 }
 
-.card-body {
+/* .card-body {
   margin-bottom: 3px;
+} */
+
+.editPCard .card-header {
+  padding: 6px 15px 7px 15px !important;
 }
 </style>
