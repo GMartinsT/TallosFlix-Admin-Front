@@ -5,10 +5,10 @@
         <div class="col-12">
           <card class="userCard">
             <template slot="header">
-              <h4 class="card-title">Editar Usuário</h4>
+              <h4 class="card-title">Criar Usuário</h4>
             </template>
             <div class="card-body">
-              <edit-form @submit="updateUser">
+              <edit-form @submit="createUser">
                 <div class="form-group">
                   <label for="name">Nome</label>
                   <input
@@ -36,6 +36,7 @@
                     type="password"
                     class="form-control"
                     id="password"
+                    required
                   />
                 </div>
                 <button type="submit" class="sbmtBtn">Salvar</button>
@@ -61,7 +62,6 @@ export default {
 
   data() {
     return {
-      userId: "",
       user: {
         name: "",
         email: "",
@@ -69,29 +69,15 @@ export default {
       },
     };
   },
-  created() {
-    this.userId = this.$route.params.id;
-    this.getUserDetails();
-  },
   methods: {
-    getUserDetails() {
-      UsersService.findUserById(this.userId)
-        .then((response) => {
-          this.user = response.data;
-          console.log("Detalhes do usuário:", this.user);
-        })
-        .catch((error) => {
-          console.error("Erro ao obter os detalhes do usuário:", error);
-        });
-    },
-    updateUser() {
-      UsersService.updateUser(this.userId, this.user)
+    createUser() {
+      UsersService.createUser(this.user)
         .then(() => {
-          console.log("Usuário atualizado com sucesso.");
-          this.$router.go(0);
+          console.log("Usuário criado com sucesso.");
+          this.$router.push({ name: "Users List" });
         })
         .catch((error) => {
-          console.error("Erro ao atualizar usuário:", error);
+          console.error("Erro ao criar usuário:", error);
         });
     },
   },
