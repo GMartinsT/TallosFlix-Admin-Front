@@ -245,7 +245,7 @@ export default {
     },
 
     register() {
-      this.$router.push({ name: CreaterTheaterForm });
+      this.$router.push({ name: "TheaterForm" });
     },
   },
 };

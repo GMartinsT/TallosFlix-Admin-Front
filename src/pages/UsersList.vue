@@ -104,7 +104,7 @@ export default {
     },
 
     register() {
-      this.$router.push({ name: CreaterUserForm });
+      this.$router.push({ name: "UserForm" });
     },
   },
 };

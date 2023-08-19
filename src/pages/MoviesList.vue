@@ -106,7 +106,7 @@ export default {
     },
 
     register() {
-      this.$router.push({ name: CreaterMovieForm });
+      this.$router.push({ name: "MovieForm" });
     },
   },
 };
