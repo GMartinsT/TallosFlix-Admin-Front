@@ -17,6 +17,7 @@
               :reload="reloadCount"
               :getSearch="searchTheaters"
               :getById="searchById"
+              :register="register"
             >
             </GenericTable>
           </div>
@@ -241,6 +242,10 @@ export default {
       const data = result.data.data;
       console.log(data);
       return data;
+    },
+
+    register() {
+      this.$router.push({ name: CreaterTheaterForm });
     },
   },
 };

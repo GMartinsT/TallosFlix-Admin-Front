@@ -17,6 +17,7 @@
               :reload="reloadCount"
               :getSearch="searchUsers"
               :getById="searchById"
+              :register="register"
             >
             </GenericTable>
           </div>
@@ -100,6 +101,10 @@ export default {
       const data = [result.data];
       console.log(data);
       return data;
+    },
+
+    register() {
+      this.$router.push({ name: CreaterUserForm });
     },
   },
 };

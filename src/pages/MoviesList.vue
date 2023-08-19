@@ -17,6 +17,7 @@
               :reload="reloadCount"
               :getSearch="searchMovies"
               :getById="searchById"
+              :register="register"
             >
             </GenericTable>
           </div>
@@ -102,6 +103,10 @@ export default {
       const result = await MoviesService.searchMovieById(searchQuery);
       console.log("LISTAAAAAAAAAAAAAAA", result);
       return result;
+    },
+
+    register() {
+      this.$router.push({ name: CreaterMovieForm });
     },
   },
 };
