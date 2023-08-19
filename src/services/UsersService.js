@@ -22,7 +22,7 @@ export default {
   },
 
   deleteUser(userId) {
-    return ApiService.delete(`/users/id/${userId}`);
+    return ApiService.delete(`/users/${userId}`);
   },
 
   getUsersCount() {
