@@ -29,11 +29,13 @@
 import Card from "src/components/Cards/Card.vue";
 import GenericTable from "src/components/GenericTable.vue";
 import UsersService from "src/services/UsersService.js";
+import NotificationsPlugin from "src/components/NotificationPlugin/index.js";
 
 export default {
   components: {
     Card,
     GenericTable,
+    NotificationsPlugin,
   },
   data() {
     return {
@@ -69,10 +71,22 @@ export default {
     deleteUser(id) {
       UsersService.deleteUser(id)
         .then(() => {
+          this.$notify({
+            message: "Usuário foi excluido com sucesso.",
+            title: "Usuário deletado!",
+            type: "danger",
+            timeout: 5000,
+          });
           console.log("Usuário deletado com sucesso.");
           this.reloadCount++;
         })
         .catch((error) => {
+          this.$notify({
+            message: "Não foi possível excluír o usuário.",
+            title: "Erro!",
+            type: "warning",
+            timeout: 5000,
+          });
           console.error("Erro ao deletar usuário:", error);
         });
     },
@@ -87,9 +101,6 @@ export default {
       console.log(data);
       return data;
     },
-  },
-  mounted() {
-    console.log(this.users, "ANTES");
   },
 };
 </script>

@@ -266,10 +266,22 @@ export default {
     createMovie() {
       MoviesService.createMovie(this.movie)
         .then(() => {
+          this.$notify({
+            message: "Filme criado com sucesso.",
+            title: "Filme registrado!",
+            type: "success",
+            timeout: 5000,
+          });
           console.log("Filme criado com sucesso.");
           this.$router.push({ name: "Movies List" });
         })
         .catch((error) => {
+          this.$notify({
+            message: "Não foi possível criar o filme.",
+            title: "Erro!",
+            type: "danger",
+            timeout: 5000,
+          });
           console.error("Erro ao criar filme:", error);
         });
     },

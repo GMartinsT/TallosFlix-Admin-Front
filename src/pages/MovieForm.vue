@@ -327,10 +327,22 @@ export default {
     saveMovie() {
       MoviesService.updateMovie(this.movieId, this.movie)
         .then(() => {
+          this.$notify({
+            message: "Filme atualizado com sucesso.",
+            title: "Filme atualizado!",
+            type: "success",
+            timeout: 5000,
+          });
           console.log("Filme atualizado com sucesso.");
           this.isEditMode = false;
         })
         .catch((error) => {
+          this.$notify({
+            message: "Não foi possível atualizar o filme.",
+            title: "Erro!",
+            type: "danger",
+            timeout: 5000,
+          });
           console.error("Erro ao atualizar filme:", error);
         });
     },

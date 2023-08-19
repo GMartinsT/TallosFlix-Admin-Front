@@ -70,10 +70,22 @@ export default {
     deleteMovie(id) {
       MoviesService.deleteMovie(id)
         .then(() => {
+          this.$notify({
+            message: "Filme foi excluido com sucesso.",
+            title: "Filme deletado!",
+            type: "danger",
+            timeout: 5000,
+          });
           console.log("Filme deletado com sucesso.");
-          this.getMovies();
+          this.getMovies(1);
         })
         .catch((error) => {
+          this.$notify({
+            message: "Não foi possível excluír o filme.",
+            title: "Erro!",
+            type: "warning",
+            timeout: 5000,
+          });
           console.error("Erro ao deletar filme:", error);
         });
     },
