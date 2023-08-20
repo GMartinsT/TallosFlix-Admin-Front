@@ -78,7 +78,7 @@ export default {
             timeout: 5000,
           });
           console.log("Filme deletado com sucesso.");
-          this.getMovies(1);
+          this.reloadCount++;
         })
         .catch((error) => {
           this.$notify({

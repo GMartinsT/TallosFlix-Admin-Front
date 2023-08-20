@@ -8,7 +8,7 @@
               <h4 class="card-title">Inserindo novo filme</h4>
             </template>
             <div class="card-body">
-              <form @submit.prevent="createMovie">
+              <div>
                 <div class="form-group">
                   <label for="title">Título</label>
                   <input
@@ -31,19 +31,9 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="fullplot">FullPlot</label>
-                  <textarea
-                    v-model="movie.fullplot"
-                    class="form-control"
-                    id="fullplot"
-                    required
-                  ></textarea>
-                </div>
-
-                <div class="form-group">
                   <label for="genres">Gêneros</label>
                   <input
-                    v-model="movie.genres"
+                    v-model="genreInput"
                     type="text"
                     class="form-control"
                     id="genres"
@@ -63,17 +53,6 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="rated">Classificação</label>
-                  <input
-                    v-model="movie.rated"
-                    type="text"
-                    class="form-control"
-                    id="rated"
-                    required
-                  />
-                </div>
-
-                <div class="form-group">
                   <label for="cast">Elenco</label>
                   <input
                     v-model="movie.cast"
@@ -85,23 +64,32 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="poster">URL do Poster</label>
+                  <label for="countries">Países</label>
                   <input
-                    v-model="movie.poster"
-                    type="url"
+                    v-model="countriesInput"
+                    type="text"
                     class="form-control"
-                    id="poster"
+                    id="countries"
                     required
                   />
                 </div>
 
                 <div class="form-group">
-                  <label for="countries">Países</label>
+                  <label for="fullplot">FullPlot</label>
+                  <textarea
+                    v-model="movie.fullplot"
+                    class="form-control"
+                    id="fullplot"
+                  ></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="languages">Idiomas</label>
                   <input
-                    v-model="movie.countries"
+                    v-model="movie.languages"
                     type="text"
                     class="form-control"
-                    id="countries"
+                    id="languages"
                     required
                   />
                 </div>
@@ -129,12 +117,12 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="writers">Escritores</label>
+                  <label for="rated">Classificação</label>
                   <input
-                    v-model="movie.writers"
+                    v-model="movie.rated"
                     type="text"
                     class="form-control"
-                    id="writers"
+                    id="rated"
                     required
                   />
                 </div>
@@ -142,22 +130,20 @@
                 <div class="form-group">
                   <label for="awards">Prêmios</label>
                   <input
-                    v-model="movie.awards.text"
-                    type="text"
+                    v-model="movie.awards.wins"
+                    type="number"
                     class="form-control"
                     id="awards"
-                    required
                   />
                 </div>
 
                 <div class="form-group">
-                  <label for="lastupdated">Última Atualização</label>
+                  <label for="nominations">Nomeações</label>
                   <input
-                    v-model="movie.lastupdated"
-                    type="date"
+                    v-model="movie.awards.nominations"
+                    type="text"
                     class="form-control"
-                    id="lastupdated"
-                    required
+                    id="nominations"
                   />
                 </div>
 
@@ -175,11 +161,11 @@
                 <div class="form-group">
                   <label for="imdb-rating">Nota IMDb</label>
                   <input
-                    v-model="movie.imdb"
+                    v-model="movie.imdb.rating"
                     type="number"
+                    step="any"
                     class="form-control"
                     id="imdb-rating"
-                    required
                   />
                 </div>
 
@@ -190,7 +176,6 @@
                     type="number"
                     class="form-control"
                     id="imdb-votes"
-                    required
                   />
                 </div>
 
@@ -208,18 +193,38 @@
                 <div class="form-group">
                   <label for="tomatoes-rating">Avaliação Rotten Tomatoes</label>
                   <input
-                    v-model="movie.tomatoes.viewer"
+                    v-model="movie.tomatoes.viewer.rating"
                     type="number"
+                    step="any"
                     class="form-control"
                     id="tomatoes-rating"
-                    required
                   />
                 </div>
 
-                <!-- Add more fields as needed -->
+                <div class="form-group">
+                  <label for="poster">Poster</label>
+                  <input
+                    v-model="movie.poster"
+                    type="url"
+                    class="form-control"
+                    id="poster"
+                  />
+                </div>
 
-                <button type="submit" class="sbmtBtn">Salvar Filme</button>
-              </form>
+                <div class="form-group">
+                  <label for="lastupdated">Última atualização</label>
+                  <input
+                    v-model="movie.lastupdated"
+                    type="date"
+                    class="form-control"
+                    id="lastupdated"
+                  />
+                </div>
+
+                <button type="submit" class="sbmtBtn" @click="createMovie">
+                  Salvar Filme
+                </button>
+              </div>
             </div>
           </card>
         </div>
@@ -242,28 +247,54 @@ export default {
       movie: {
         plot: "",
         genres: [],
-        fullplot: "",
         runtime: 0,
-        rated: "",
         cast: [],
         poster: "",
         title: "",
-        countries: [],
-        released: {},
+        fullplot: "",
+        languages: [],
+        released: "",
         directors: [],
         writers: [],
-        awards: {},
+        awards: {
+          wins: 0,
+          nominations: 0,
+          text: "",
+        },
         lastupdated: "",
         year: 0,
-        imdb: {},
+        imdb: {
+          rating: 0,
+          votes: 0,
+          id: 0,
+        },
+        countries: [],
         type: "",
-        tomatoes: {},
+        tomatoes: {
+          viewer: {
+            rating: 0,
+            numReviews: 0,
+            meter: 0,
+          },
+          lastUpdated: {
+            $date: "",
+          },
+        },
       },
+      genreInput: "",
+      countriesInput: "",
     };
   },
 
   methods: {
     createMovie() {
+      this.movie.released = new Date(this.movie.released);
+      this.movie.genres = this.genreInput
+        .split(",")
+        .map((genre) => genre.trim());
+      this.movie.countries = this.countriesInput
+        .split(",")
+        .map((countrie) => countrie.trim());
       MoviesService.createMovie(this.movie)
         .then(() => {
           this.$notify({
@@ -285,6 +316,12 @@ export default {
           console.error("Erro ao criar filme:", error);
         });
     },
+  },
+  mounted() {
+    const now = new Date();
+    const formattedDate = now.toISOString().split("T")[0];
+
+    this.movie.lastupdated = formattedDate;
   },
 };
 </script>
