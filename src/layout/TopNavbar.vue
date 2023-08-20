@@ -14,14 +14,14 @@
 </template>
 
 <script>
-// Importe o store.js
 import store from "src/store/store.js";
+import SessionsService from "src/services/SessionsService.js";
 
 export default {
   methods: {
-    logout() {
+    async logout() {
+      await SessionsService.removeSession(localStorage.getItem("access_token"));
       store.dispatch("logoutUser");
-
       localStorage.removeItem("userId");
       localStorage.removeItem("access_token");
 

@@ -61,8 +61,11 @@
         </tr>
       </tbody>
     </table>
+    <div class="register-container" v-if="register">
+      <button class="registerBtn" @click="registerNew">Registrar</button>
+    </div>
     <div class="pagination-container">
-      <nav aria-label="Page navigation example">
+      <nav class="pagnav" aria-label="Page navigation example">
         <ul class="pagination">
           <li class="page-item">
             <a
@@ -126,6 +129,7 @@ export default {
     reload: Number,
     getSearch: Function,
     getById: Function,
+    register: Function,
   },
 
   watch: {
@@ -170,6 +174,9 @@ export default {
           });
       }
     },
+    registerNew() {
+      this.register();
+    },
   },
 
   computed: {
@@ -210,8 +217,34 @@ export default {
   justify-content: center;
 }
 
+.register-container {
+  position: absolute;
+  left: 15px;
+}
+
+.registerBtn {
+  margin-top: 2px !important;
+}
+
 .page-link.active {
   color: #fff;
   background-color: #898686;
+}
+
+.registerBtn {
+  padding: 5px 20px;
+  background-color: #525156 !important;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  margin-block-start: 8px;
+  font-weight: bold;
+}
+
+.registerBtn:hover {
+  transform: scale(1.05);
+  background-color: #464646 !important;
 }
 </style>

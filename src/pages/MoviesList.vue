@@ -17,6 +17,7 @@
               :reload="reloadCount"
               :getSearch="searchMovies"
               :getById="searchById"
+              :register="register"
             >
             </GenericTable>
           </div>
@@ -70,10 +71,22 @@ export default {
     deleteMovie(id) {
       MoviesService.deleteMovie(id)
         .then(() => {
+          this.$notify({
+            message: "Filme foi excluido com sucesso.",
+            title: "Filme deletado!",
+            type: "danger",
+            timeout: 5000,
+          });
           console.log("Filme deletado com sucesso.");
-          this.getMovies();
+          this.reloadCount++;
         })
         .catch((error) => {
+          this.$notify({
+            message: "Não foi possível excluír o filme.",
+            title: "Erro!",
+            type: "warning",
+            timeout: 5000,
+          });
           console.error("Erro ao deletar filme:", error);
         });
     },
@@ -90,6 +103,10 @@ export default {
       const result = await MoviesService.searchMovieById(searchQuery);
       console.log("LISTAAAAAAAAAAAAAAA", result);
       return result;
+    },
+
+    register() {
+      this.$router.push({ name: "MovieForm" });
     },
   },
 };

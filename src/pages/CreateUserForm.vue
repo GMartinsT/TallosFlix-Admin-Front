@@ -73,10 +73,22 @@ export default {
     createUser() {
       UsersService.createUser(this.user)
         .then(() => {
+          this.$notify({
+            message: "Usuário criado com sucesso.",
+            title: "Usuário registrado!",
+            type: "success",
+            timeout: 5000,
+          });
           console.log("Usuário criado com sucesso.");
           this.$router.push({ name: "Users List" });
         })
         .catch((error) => {
+          this.$notify({
+            message: "Não foi possível criar o usuário.",
+            title: "Erro!",
+            type: "danger",
+            timeout: 5000,
+          });
           console.error("Erro ao criar usuário:", error);
         });
     },

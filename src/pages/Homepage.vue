@@ -123,12 +123,14 @@ import UsersService from "src/services/UsersService.js";
 import MoviesService from "src/services/MoviesService.js";
 import TheatersService from "src/services/TheatersService.js";
 import CommentsService from "src/services/CommentsService.js";
+import NotificationsPlugin from "src/components/NotificationPlugin/index.js";
 
 export default {
   components: {
     Card,
     LTable,
     StatsCard,
+    NotificationsPlugin,
   },
   data() {
     return {
@@ -173,9 +175,22 @@ export default {
     updateUser() {
       UsersService.updateUser(this.user._id, this.user)
         .then((response) => {
+          this.$notify({
+            message: "Seu usuário foi editado com sucesso.",
+            title: "Dados atualizados!",
+            type: "success",
+            timeout: 5000,
+          });
+
           console.log("Detalhes do usuário atualizados:", response.data);
         })
         .catch((error) => {
+          this.$notify({
+            message: "Não foi possível atualizar o seu usuário.",
+            title: "Erro!",
+            type: "danger",
+            timeout: 5000,
+          });
           console.error("Erro ao atualizar os detalhes do usuário:", error);
         });
     },
@@ -254,7 +269,7 @@ export default {
   border-radius: 4px;
   cursor: pointer;
   outline: none;
-  width: 13rem;
+  width: 12.6rem;
   font-weight: bold;
 }
 
@@ -329,10 +344,6 @@ td {
   max-height: 300px;
   overflow-y: auto;
 }
-
-/* .card-body {
-  margin-bottom: 3px;
-} */
 
 .editPCard .card-header {
   padding: 6px 15px 7px 15px !important;

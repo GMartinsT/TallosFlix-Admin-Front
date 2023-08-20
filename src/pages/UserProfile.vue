@@ -52,11 +52,13 @@
 import Card from "src/components/Cards/Card.vue";
 import EditForm from "src/components/UpdateForm.vue";
 import UsersService from "src/services/UsersService.js";
+import NotificationsPlugin from "src/components/NotificationPlugin/index.js";
 
 export default {
   components: {
     Card,
     EditForm,
+    NotificationsPlugin,
   },
 
   data() {
@@ -87,10 +89,22 @@ export default {
     updateUser() {
       UsersService.updateUser(this.userId, this.user)
         .then(() => {
+          this.$notify({
+            message: "Usuário foi editado com sucesso.",
+            title: "Usuário atualizado!",
+            type: "success",
+            timeout: 5000,
+          });
           console.log("Usuário atualizado com sucesso.");
-          this.$router.go(0);
+          this.$router.push({ name: "Users List" });
         })
         .catch((error) => {
+          this.$notify({
+            message: "Usuário foi excluido com sucesso.",
+            title: "Usuário deletado!",
+            type: "danger",
+            timeout: 5000,
+          });
           console.error("Erro ao atualizar usuário:", error);
         });
     },

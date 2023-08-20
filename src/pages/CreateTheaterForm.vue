@@ -130,10 +130,22 @@ export default {
     createTheater() {
       TheatersService.createTheater(this.theater)
         .then(() => {
+          this.$notify({
+            message: "Cinema criado com sucesso.",
+            title: "Cinema registrado!",
+            type: "success",
+            timeout: 5000,
+          });
           console.log("Teatro criado com sucesso.");
           this.$router.push({ name: "Theaters List" });
         })
         .catch((error) => {
+          this.$notify({
+            message: "Não foi possível registrar o cinema.",
+            title: "Erro!",
+            type: "danger",
+            timeout: 5000,
+          });
           console.error("Erro ao criar teatro:", error);
         });
     },

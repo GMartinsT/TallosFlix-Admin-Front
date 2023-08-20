@@ -77,7 +77,6 @@
                     type="number"
                     class="form-control"
                     id="comments"
-                    required
                   />
                 </div>
 
@@ -148,7 +147,6 @@
                     type="text"
                     class="form-control"
                     id="writers"
-                    required
                   />
                 </div>
 
@@ -160,7 +158,6 @@
                     type="number"
                     class="form-control"
                     id="awardsnominations"
-                    required
                   />
                 </div>
 
@@ -172,7 +169,6 @@
                     type="number"
                     class="form-control"
                     id="awards"
-                    required
                   />
                 </div>
 
@@ -184,7 +180,6 @@
                     type="number"
                     class="form-control"
                     id="imdb"
-                    required
                   />
                 </div>
 
@@ -196,7 +191,6 @@
                     type="number"
                     class="form-control"
                     id="imdbvotes"
-                    required
                   />
                 </div>
 
@@ -232,7 +226,6 @@
                     type="number"
                     class="form-control"
                     id="tomatoes"
-                    required
                   />
                 </div>
 
@@ -246,24 +239,8 @@
                     type="number"
                     class="form-control"
                     id="tomatoesreviews"
-                    required
                   />
                 </div>
-
-                <div class="form-group" v-if="movie.tomatoes">
-                  <label for="tomatoeslastup"
-                    >Última atualização no Rotten Tomatoes</label
-                  >
-                  <input
-                    v-model="tomatoesLastUp"
-                    :disabled="!isEditMode"
-                    type="text"
-                    class="form-control"
-                    id="tomatoeslastup"
-                    required
-                  />
-                </div>
-
                 <button
                   v-if="!isEditMode"
                   @click="isEditMode = true"
@@ -327,10 +304,22 @@ export default {
     saveMovie() {
       MoviesService.updateMovie(this.movieId, this.movie)
         .then(() => {
+          this.$notify({
+            message: "Filme atualizado com sucesso.",
+            title: "Filme atualizado!",
+            type: "success",
+            timeout: 5000,
+          });
           console.log("Filme atualizado com sucesso.");
           this.isEditMode = false;
         })
         .catch((error) => {
+          this.$notify({
+            message: "Não foi possível atualizar o filme.",
+            title: "Erro!",
+            type: "danger",
+            timeout: 5000,
+          });
           console.error("Erro ao atualizar filme:", error);
         });
     },
