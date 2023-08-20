@@ -210,7 +210,7 @@ export default {
             timeout: 5000,
           });
           console.log("Cinema deletado com sucesso.");
-          this.getTheater();
+          this.reloadCount++;
         })
         .catch((error) => {
           this.$notify({
