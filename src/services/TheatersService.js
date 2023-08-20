@@ -6,7 +6,7 @@ export default {
   },
 
   async getTheaterById(id) {
-    return ApiService.get(`/theaters/${id}`);
+    return ApiService.get(`/theaters/id/${id}`);
   },
 
   async createTheater(theaterData) {
@@ -20,7 +20,7 @@ export default {
 
   async updateTheater(id, theaterData) {
     try {
-      const response = await ApiService.put(`/theaters/${id}`, theaterData);
+      const response = await ApiService.put(`/theaters/id/${id}`, theaterData);
       return response.data;
     } catch (error) {
       throw new Error("Erro ao atualizar o cinema.");
@@ -39,4 +39,12 @@ export default {
   getTheatersCount() {
     return ApiService.get('/theaters/count/alltheaters');
   },
+
+  searchTheaters(page, searchType, searchQuery) {
+    return ApiService.get(`/theaters/search?page=${page}&searchType=${searchType}&searchQuery=${searchQuery}`)
+  },
+
+  searchTheaterById(id) {
+    return ApiService.get(`/theaters/searchId/${id}`);
+  }
 };

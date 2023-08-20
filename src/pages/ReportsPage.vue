@@ -15,6 +15,8 @@
               :columns="commentsColumns"
               :actionColumn="actionCommentsColumn"
               :reload="reloadCommentsCount"
+              :getSearch="searchComments"
+              :getById="searchCommentById"
             >
             </GenericTable>
           </div>
@@ -30,6 +32,8 @@
               :columns="sessionsColumns"
               :actionColumn="actionSessionsColumn"
               :reload="reloadSessionsCount"
+              :getSearch="searchSessions"
+              :getById="searchSessionById"
             >
             </GenericTable>
           </div>
@@ -137,6 +141,44 @@ export default {
     },
     closeSessionPopup() {
       this.showSessionPopup = false;
+    },
+    async searchComments(page, searchType, searchQuery) {
+      try {
+        const result = await CommentsService.searchComments(
+          page,
+          searchType,
+          searchQuery
+        );
+        console.log(result.data);
+        return result;
+      } catch (error) {
+        console.error("Erro ao buscar sessão:", error);
+      }
+    },
+    async searchCommentById(searchQuery) {
+      const result = await CommentsService.searchCommentById(searchQuery);
+      const data = result;
+      console.log("DATAA", data, "RESULT", result);
+      return data;
+    },
+    async searchSessions(page, searchType, searchQuery) {
+      try {
+        const result = await SessionsService.searchSessions(
+          page,
+          searchType,
+          searchQuery
+        );
+        console.log(result, "PAAAGE");
+        return result;
+      } catch (error) {
+        console.error("Erro ao buscar sessão:", error);
+      }
+    },
+    async searchSessionById(searchQuery) {
+      const result = await SessionsService.getSessionById(searchQuery);
+      const data = [result.data];
+      console.log(data);
+      return data;
     },
   },
 };

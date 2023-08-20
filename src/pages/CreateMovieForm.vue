@@ -5,15 +5,14 @@
         <div class="col-12">
           <card class="movieCard">
             <template slot="header">
-              <h4 class="card-title">Detalhes do Filme</h4>
+              <h4 class="card-title">Inserindo novo filme</h4>
             </template>
             <div class="card-body">
-              <edit-form :disabled="!isEditMode">
+              <div>
                 <div class="form-group">
                   <label for="title">Título</label>
                   <input
                     v-model="movie.title"
-                    :disabled="!isEditMode"
                     type="text"
                     class="form-control"
                     id="title"
@@ -25,8 +24,6 @@
                   <label for="plot">Plot</label>
                   <textarea
                     v-model="movie.plot"
-                    :disabled="!isEditMode"
-                    type="text"
                     class="form-control"
                     id="plot"
                     required
@@ -36,8 +33,7 @@
                 <div class="form-group">
                   <label for="genres">Gêneros</label>
                   <input
-                    v-model="movieGenres"
-                    :disabled="!isEditMode"
+                    v-model="genreInput"
                     type="text"
                     class="form-control"
                     id="genres"
@@ -49,7 +45,6 @@
                   <label for="runtime">Duração</label>
                   <input
                     v-model="movie.runtime"
-                    :disabled="!isEditMode"
                     type="number"
                     class="form-control"
                     id="runtime"
@@ -61,7 +56,6 @@
                   <label for="cast">Elenco</label>
                   <input
                     v-model="movie.cast"
-                    :disabled="!isEditMode"
                     type="text"
                     class="form-control"
                     id="cast"
@@ -70,13 +64,13 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="comments">Quantidade de comentários</label>
+                  <label for="countries">Países</label>
                   <input
-                    v-model="movie.num_mflix_comments"
-                    :disabled="!isEditMode"
-                    type="number"
+                    v-model="countriesInput"
+                    type="text"
                     class="form-control"
-                    id="comments"
+                    id="countries"
+                    required
                   />
                 </div>
 
@@ -84,18 +78,15 @@
                   <label for="fullplot">FullPlot</label>
                   <textarea
                     v-model="movie.fullplot"
-                    :disabled="!isEditMode"
                     class="form-control"
                     id="fullplot"
-                    required
                   ></textarea>
                 </div>
 
-                <div class="form-group" v-if="movie.languages">
+                <div class="form-group">
                   <label for="languages">Idiomas</label>
                   <input
                     v-model="movie.languages"
-                    :disabled="!isEditMode"
                     type="text"
                     class="form-control"
                     id="languages"
@@ -104,23 +95,10 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="countries">Países</label>
-                  <textarea
-                    v-model="movie.countries"
-                    :disabled="!isEditMode"
-                    type="text"
-                    class="form-control"
-                    id="countries"
-                    required
-                  ></textarea>
-                </div>
-
-                <div class="form-group">
                   <label for="released">Data de Lançamento</label>
                   <input
-                    v-model="movieReleased"
-                    :disabled="!isEditMode"
-                    type="text"
+                    v-model="movie.released"
+                    type="date"
                     class="form-control"
                     id="released"
                     required
@@ -131,7 +109,6 @@
                   <label for="directors">Diretores</label>
                   <input
                     v-model="movie.directors"
-                    :disabled="!isEditMode"
                     type="text"
                     class="form-control"
                     id="directors"
@@ -139,33 +116,21 @@
                   />
                 </div>
 
-                <div class="form-group" v-if="movie.writers">
-                  <label for="writers">Escritor</label>
+                <div class="form-group">
+                  <label for="rated">Classificação</label>
                   <input
-                    v-model="movie.writers"
-                    :disabled="!isEditMode"
+                    v-model="movie.rated"
                     type="text"
                     class="form-control"
-                    id="writers"
+                    id="rated"
+                    required
                   />
                 </div>
 
                 <div class="form-group">
-                  <label for="awardsnominations">Nomeações</label>
-                  <input
-                    v-model="movie.awards.nominations"
-                    :disabled="!isEditMode"
-                    type="number"
-                    class="form-control"
-                    id="awardsnominations"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="awards">Premiações</label>
+                  <label for="awards">Prêmios</label>
                   <input
                     v-model="movie.awards.wins"
-                    :disabled="!isEditMode"
                     type="number"
                     class="form-control"
                     id="awards"
@@ -173,24 +138,12 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="imdb">Nota IMDb</label>
+                  <label for="nominations">Nomeações</label>
                   <input
-                    v-model="movie.imdb.rating"
-                    :disabled="!isEditMode"
-                    type="number"
+                    v-model="movie.awards.nominations"
+                    type="text"
                     class="form-control"
-                    id="imdb"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="imdbvotes">Quantidade de votos IMDb</label>
-                  <input
-                    v-model="movie.imdb.votes"
-                    :disabled="!isEditMode"
-                    type="number"
-                    class="form-control"
-                    id="imdbvotes"
+                    id="nominations"
                   />
                 </div>
 
@@ -198,7 +151,6 @@
                   <label for="year">Ano</label>
                   <input
                     v-model="movie.year"
-                    :disabled="!isEditMode"
                     type="number"
                     class="form-control"
                     id="year"
@@ -207,10 +159,30 @@
                 </div>
 
                 <div class="form-group">
+                  <label for="imdb-rating">Nota IMDb</label>
+                  <input
+                    v-model="movie.imdb.rating"
+                    type="number"
+                    step="any"
+                    class="form-control"
+                    id="imdb-rating"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="imdb-votes">Quantidade de votos IMDb</label>
+                  <input
+                    v-model="movie.imdb.votes"
+                    type="number"
+                    class="form-control"
+                    id="imdb-votes"
+                  />
+                </div>
+
+                <div class="form-group">
                   <label for="type">Tipo</label>
                   <input
                     v-model="movie.type"
-                    :disabled="!isEditMode"
                     type="text"
                     class="form-control"
                     id="type"
@@ -218,40 +190,41 @@
                   />
                 </div>
 
-                <div class="form-group" v-if="movie.tomatoes">
-                  <label for="tomatoes">Avalição Rotten Tomatoes</label>
+                <div class="form-group">
+                  <label for="tomatoes-rating">Avaliação Rotten Tomatoes</label>
                   <input
                     v-model="movie.tomatoes.viewer.rating"
-                    :disabled="!isEditMode"
                     type="number"
+                    step="any"
                     class="form-control"
-                    id="tomatoes"
+                    id="tomatoes-rating"
                   />
                 </div>
 
-                <div class="form-group" v-if="movie.tomatoes">
-                  <label for="tomatoesreviews"
-                    >Número de Reviews no Rotten Tomatoes</label
-                  >
+                <div class="form-group">
+                  <label for="poster">Poster</label>
                   <input
-                    v-model="movie.tomatoes.viewer.numReviews"
-                    :disabled="!isEditMode"
-                    type="number"
+                    v-model="movie.poster"
+                    type="url"
                     class="form-control"
-                    id="tomatoesreviews"
+                    id="poster"
                   />
                 </div>
-                <button
-                  v-if="!isEditMode"
-                  @click="isEditMode = true"
-                  class="editFormBtn"
-                >
-                  Editar Filme
+
+                <div class="form-group">
+                  <label for="lastupdated">Última atualização</label>
+                  <input
+                    v-model="movie.lastupdated"
+                    type="date"
+                    class="form-control"
+                    id="lastupdated"
+                  />
+                </div>
+
+                <button type="submit" class="sbmtBtn" @click="createMovie">
+                  Salvar Filme
                 </button>
-                <button v-else @click="saveMovie" class="sbmtBtn">
-                  Salvar Edições
-                </button>
-              </edit-form>
+              </div>
             </div>
           </card>
         </div>
@@ -262,77 +235,100 @@
 
 <script>
 import Card from "src/components/Cards/Card.vue";
-import EditForm from "src/components/UpdateForm.vue";
 import MoviesService from "src/services/MoviesService.js";
 
 export default {
   components: {
     Card,
-    EditForm,
   },
 
   data() {
     return {
-      movieId: "",
-      movie: {},
-      isEditMode: false,
-      movieGenres: "",
-      movieReleased: "",
-      tomatoesLastUp: "",
+      movie: {
+        plot: "",
+        genres: [],
+        runtime: 0,
+        cast: [],
+        poster: "",
+        title: "",
+        fullplot: "",
+        languages: [],
+        released: "",
+        directors: [],
+        writers: [],
+        awards: {
+          wins: 0,
+          nominations: 0,
+          text: "",
+        },
+        lastupdated: "",
+        year: 0,
+        imdb: {
+          rating: 0,
+          votes: 0,
+          id: 0,
+        },
+        countries: [],
+        type: "",
+        tomatoes: {
+          viewer: {
+            rating: 0,
+            numReviews: 0,
+            meter: 0,
+          },
+          lastUpdated: {
+            $date: "",
+          },
+        },
+      },
+      genreInput: "",
+      countriesInput: "",
     };
   },
-  created() {
-    this.movieId = this.$route.params.id;
-    this.getMovieDetails();
-  },
+
   methods: {
-    getMovieDetails() {
-      MoviesService.getMovieById(this.movieId)
-        .then((response) => {
-          this.movie = response;
-          this.movieGenres = this.movie.genres.join(", ");
-          this.movieReleased = this.formatDate(this.movie.released);
-          this.tomatoesLastUp = this.formatDate(
-            this.movie.tomatoes.lastUpdated
-          );
-          console.log("Detalhes do filme:", this.movie);
-        })
-        .catch((error) => {
-          console.error("Erro ao obter os detalhes do filme:", error);
-        });
-    },
-    saveMovie() {
-      MoviesService.updateMovie(this.movieId, this.movie)
+    createMovie() {
+      this.movie.released = new Date(this.movie.released);
+      this.movie.genres = this.genreInput
+        .split(",")
+        .map((genre) => genre.trim());
+      this.movie.countries = this.countriesInput
+        .split(",")
+        .map((countrie) => countrie.trim());
+      MoviesService.createMovie(this.movie)
         .then(() => {
           this.$notify({
-            message: "Filme atualizado com sucesso.",
-            title: "Filme atualizado!",
+            message: "Filme criado com sucesso.",
+            title: "Filme registrado!",
             type: "success",
             timeout: 5000,
           });
-          console.log("Filme atualizado com sucesso.");
-          this.isEditMode = false;
+          console.log("Filme criado com sucesso.");
+          this.$router.push({ name: "Movies List" });
         })
         .catch((error) => {
           this.$notify({
-            message: "Não foi possível atualizar o filme.",
+            message: "Não foi possível criar o filme.",
             title: "Erro!",
             type: "danger",
             timeout: 5000,
           });
-          console.error("Erro ao atualizar filme:", error);
+          console.error("Erro ao criar filme:", error);
         });
     },
-    formatDate(date) {
-      return new Date(date).toLocaleDateString();
-    },
+  },
+  mounted() {
+    const now = new Date();
+    const formattedDate = now.toISOString().split("T")[0];
+
+    this.movie.lastupdated = formattedDate;
   },
 };
 </script>
 
 <style>
 .movieCard {
-  padding-bottom: 5px;
+  padding-bottom: 0px;
 }
 .card-body {
   padding: 20px;
@@ -345,18 +341,6 @@ export default {
 
 .sbmtBtn {
   padding: 5px 20px;
-  background-color: #2e66df;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  outline: none;
-  margin-block-start: 8px;
-  font-weight: bold;
-}
-
-.editFormBtn {
-  padding: 5px 20px;
   background-color: #525156;
   color: #fff;
   border: none;
@@ -368,11 +352,6 @@ export default {
 }
 
 .sbmtBtn:hover {
-  transform: scale(1.05);
-  background-color: #1a4fc0;
-}
-
-.editFormBtn:hover {
   transform: scale(1.05);
   background-color: #464646;
 }

@@ -27,6 +27,8 @@
 import { ref } from "vue";
 import { login } from "../services/AuthService";
 import store from "../store/store";
+import SessionsService from "src/services/SessionsService.js";
+
 export default {
   name: "Login",
   setup() {
@@ -40,10 +42,9 @@ export default {
         const response = await login(user.value.email, user.value.password);
 
         if (response && response.access_token) {
-          store.commit("setUser", { email: user.value.email }); // Salvar os dados do usuário no Vuex Store
-          store.commit("setToken", response.access_token); // Salvar o token no Vuex Store
+          store.commit("setUser", { email: user.value.email });
+          store.commit("setToken", response.access_token);
           store.commit("setUserId", response.session.user_id);
-
           location.replace("/#/admin/homepage");
           console.log("Login bem-sucedido!");
         } else {

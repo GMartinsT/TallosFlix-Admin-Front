@@ -5,10 +5,10 @@
         <div class="col-12">
           <card class="userCard">
             <template slot="header">
-              <h4 class="card-title">Editar Usuário</h4>
+              <h4 class="card-title">Criar Usuário</h4>
             </template>
             <div class="card-body">
-              <edit-form @submit="updateUser">
+              <edit-form @submit="createUser">
                 <div class="form-group">
                   <label for="name">Nome</label>
                   <input
@@ -36,6 +36,7 @@
                     type="password"
                     class="form-control"
                     id="password"
+                    required
                   />
                 </div>
                 <button type="submit" class="sbmtBtn">Salvar</button>
@@ -52,18 +53,15 @@
 import Card from "src/components/Cards/Card.vue";
 import EditForm from "src/components/UpdateForm.vue";
 import UsersService from "src/services/UsersService.js";
-import NotificationsPlugin from "src/components/NotificationPlugin/index.js";
 
 export default {
   components: {
     Card,
     EditForm,
-    NotificationsPlugin,
   },
 
   data() {
     return {
-      userId: "",
       user: {
         name: "",
         email: "",
@@ -71,41 +69,27 @@ export default {
       },
     };
   },
-  created() {
-    this.userId = this.$route.params.id;
-    this.getUserDetails();
-  },
   methods: {
-    getUserDetails() {
-      UsersService.findUserById(this.userId)
-        .then((response) => {
-          this.user = response.data;
-          console.log("Detalhes do usuário:", this.user);
-        })
-        .catch((error) => {
-          console.error("Erro ao obter os detalhes do usuário:", error);
-        });
-    },
-    updateUser() {
-      UsersService.updateUser(this.userId, this.user)
+    createUser() {
+      UsersService.createUser(this.user)
         .then(() => {
           this.$notify({
-            message: "Usuário foi editado com sucesso.",
-            title: "Usuário atualizado!",
+            message: "Usuário criado com sucesso.",
+            title: "Usuário registrado!",
             type: "success",
             timeout: 5000,
           });
-          console.log("Usuário atualizado com sucesso.");
+          console.log("Usuário criado com sucesso.");
           this.$router.push({ name: "Users List" });
         })
         .catch((error) => {
           this.$notify({
-            message: "Usuário foi excluido com sucesso.",
-            title: "Usuário deletado!",
+            message: "Não foi possível criar o usuário.",
+            title: "Erro!",
             type: "danger",
             timeout: 5000,
           });
-          console.error("Erro ao atualizar usuário:", error);
+          console.error("Erro ao criar usuário:", error);
         });
     },
   },

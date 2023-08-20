@@ -1,8 +1,5 @@
 import DashboardLayout from '../layout/DashboardLayout.vue'
-// GeneralViews
 import NotFound from '../pages/NotFoundPage.vue'
-
-// Admin pages
 import Homepage from 'src/pages/Homepage.vue'
 import UserProfile from 'src/pages/UserProfile.vue'
 import UsersList from 'src/pages/UsersList.vue'
@@ -11,6 +8,9 @@ import TheatersList from 'src/pages/TheatersList.vue'
 import MovieForm from 'src/pages/MovieForm.vue'
 import ReportsPage from 'src/pages/ReportsPage.vue'
 import Login from 'src/pages/Login.vue'
+import CreateUserForm from 'src/pages/CreateUserForm.vue'
+import CreateMovieForm from 'src/pages/CreateMovieForm.vue'
+import CreateTheaterForm from 'src/pages/CreateTheaterForm.vue'
 
 const routes = [
   {
@@ -62,6 +62,21 @@ const routes = [
         path: 'reports',
         name: 'Reports',
         component: ReportsPage
+      },
+      {
+        path: 'createuser',
+        name: 'UserForm',
+        component: CreateUserForm
+      },
+      {
+        path: 'createmovie',
+        name: 'MovieForm',
+        component: CreateMovieForm
+      },
+      {
+        path: 'createtheater',
+        name: 'TheaterForm',
+        component: CreateTheaterForm
       }
     ]
   },

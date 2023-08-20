@@ -15,6 +15,9 @@
               :columns="columns"
               :actionColumn="actionColumn"
               :reload="reloadCount"
+              :getSearch="searchUsers"
+              :getById="searchById"
+              :register="register"
             >
             </GenericTable>
           </div>
@@ -27,11 +30,13 @@
 import Card from "src/components/Cards/Card.vue";
 import GenericTable from "src/components/GenericTable.vue";
 import UsersService from "src/services/UsersService.js";
+import NotificationsPlugin from "src/components/NotificationPlugin/index.js";
 
 export default {
   components: {
     Card,
     GenericTable,
+    NotificationsPlugin,
   },
   data() {
     return {
@@ -67,12 +72,39 @@ export default {
     deleteUser(id) {
       UsersService.deleteUser(id)
         .then(() => {
+          this.$notify({
+            message: "Usuário foi excluido com sucesso.",
+            title: "Usuário deletado!",
+            type: "danger",
+            timeout: 5000,
+          });
           console.log("Usuário deletado com sucesso.");
           this.reloadCount++;
         })
         .catch((error) => {
+          this.$notify({
+            message: "Não foi possível excluír o usuário.",
+            title: "Erro!",
+            type: "warning",
+            timeout: 5000,
+          });
           console.error("Erro ao deletar usuário:", error);
         });
+    },
+
+    searchUsers(page, searchType, searchQuery) {
+      return UsersService.searchUsers(page, searchType, searchQuery);
+    },
+
+    async searchById(searchQuery) {
+      const result = await UsersService.findUserById(searchQuery);
+      const data = [result.data];
+      console.log(data);
+      return data;
+    },
+
+    register() {
+      this.$router.push({ name: "UserForm" });
     },
   },
 };
@@ -98,5 +130,43 @@ th {
 .delete-icon:hover {
   color: red;
   transform: scale(1.2);
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.search-input {
+  flex-grow: 1;
+  padding: 5px;
+  border: none;
+}
+
+.search-icon {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.search-icon i {
+  font-size: 16px;
+}
+.search-box {
+  display: flex;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 4px;
+  padding-right: 5px;
+}
+
+select {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 4px;
+  height: 2.3rem;
+  margin-right: 5px;
+  outline: none;
 }
 </style>

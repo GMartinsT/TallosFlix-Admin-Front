@@ -1,11 +1,19 @@
 import { ApiService } from "./api.js";
 
 export default {
-  async getAllSessions(page = 1) {
+  getAllSessions(page = 1) {
     return ApiService.get(`/sessions?page=${page}`);
   },
 
-  async getSessionById(id) {
-    return ApiService.get(`/sessions/${id}`);
+  getSessionById(id) {
+    return ApiService.get(`/sessions/id/${id}`);
   },
+
+  searchSessions(page, searchType, searchQuery) {
+    return ApiService.get(`/sessions/search?page=${page}&searchType=${searchType}&searchQuery=${searchQuery}`)
+  },
+
+  removeSession(token) {
+    return ApiService.delete(`/sessions/${token}`)
+  }
 };

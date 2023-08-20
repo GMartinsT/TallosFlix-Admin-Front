@@ -15,6 +15,9 @@
               :columns="columns"
               :actionColumn="actionColumn"
               :reload="reloadCount"
+              :getSearch="searchTheaters"
+              :getById="searchById"
+              :register="register"
             >
             </GenericTable>
           </div>
@@ -76,10 +79,6 @@ export default {
         { key: "actions", title: "Ações", class: "actions" },
       ],
       actionColumn: [
-        {
-          icon: "fas fa-search-plus",
-          click: this.editTheater,
-        },
         {
           icon: "fas fa-map",
           click: this.showInMap,
@@ -184,20 +183,69 @@ export default {
           lat: theater.data.location.geo.coordinates[1],
           lng: theater.data.location.geo.coordinates[0],
         };
+        this.$notify({
+          message: "Cinema foi localizado no mapa.",
+          title: "Localização atualizada",
+          type: "primary",
+          timeout: 5000,
+        });
       } catch (error) {
-        console.error("Erro ao buscar a localização do teatro:", error);
+        this.$notify({
+          message: "Não foi possível localizar o cinema.",
+          title: "Cinema não encontrado!",
+          type: "danger",
+          timeout: 5000,
+        });
+        console.error("Erro ao buscar a localização do cinema:", error);
       }
     },
 
     deleteTheater(id) {
       TheatersService.deleteTheater(id)
         .then(() => {
+          this.$notify({
+            message: "Cinema foi excluido com sucesso.",
+            title: "Cinema deletado!",
+            type: "danger",
+            timeout: 5000,
+          });
           console.log("Cinema deletado com sucesso.");
-          this.getTheater();
+          this.reloadCount++;
         })
         .catch((error) => {
+          this.$notify({
+            message: "Não foi possível excluír o cinema.",
+            title: "Erro!",
+            type: "warning",
+            timeout: 5000,
+          });
           console.error("Erro ao deletar cinema:", error);
         });
+    },
+
+    async searchTheaters(page, searchType, searchQuery) {
+      try {
+        const result = await TheatersService.searchTheaters(
+          page,
+          searchType,
+          searchQuery
+        );
+        console.log(result.data);
+        return result;
+      } catch (error) {
+        console.error("Erro ao buscar cinema:", error);
+      }
+    },
+
+    async searchById(searchQuery) {
+      const result = await TheatersService.searchTheaterById(searchQuery);
+      const data = result.data.data;
+      console.log(data);
+      return data;
+    },
+
+    register() {
+      this.$router.push({ name: "TheaterForm" });
     },
   },
 };
