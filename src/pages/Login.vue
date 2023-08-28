@@ -27,7 +27,6 @@
 import { ref } from "vue";
 import { login } from "../services/AuthService";
 import store from "../store/store";
-import SessionsService from "src/services/SessionsService.js";
 
 export default {
   name: "Login",
@@ -42,16 +41,14 @@ export default {
         const response = await login(user.value.email, user.value.password);
 
         if (response && response.access_token) {
-          store.commit("setUser", { email: user.value.email });
+          store.commit("setUserMail", user.value.email);
           store.commit("setToken", response.access_token);
           store.commit("setUserId", response.session.user_id);
           location.replace("/#/admin/homepage");
           console.log("Login bem-sucedido!");
-        } else {
-          console.log("Credenciais inválidas");
         }
       } catch (error) {
-        console.error("Erro ao fazer login:", error);
+        console.error("Credenciais inválidas", error);
       }
     };
 
