@@ -1,0 +1,19 @@
+FROM node:16-alpine
+
+WORKDIR /home/front-tallosflix/app
+
+COPY package.*json ./
+
+RUN npm install --force
+
+RUN npm install -g serve
+
+COPY . .
+
+RUN npm run build
+
+USER node
+
+EXPOSE 8080
+
+ENTRYPOINT [ "serve", "-s", "dist", "-l", "8080" ]

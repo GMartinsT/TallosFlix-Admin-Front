@@ -7,10 +7,14 @@ const store = new Vuex.Store({
   state: {
     userId: null,
     access_token: null,
+    userMail: null,
   },
   mutations: {
     setUserId(state, userId) {
       state.userId = userId;
+    },
+    setUserMail(state, mail) {
+      state.userMail = mail;
     },
     setToken(state, access_token) {
       state.access_token = access_token;
