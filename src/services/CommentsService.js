@@ -52,7 +52,6 @@ export default {
   async searchCommentById(searchQuery) {
     try {
       const response = await ApiService.get(`/comments/searchId/${searchQuery}`);
-      console.log(response, 'SERVICEEE');
       return response.data.data;
     } catch (error) {
       throw new Error("Erro ao obter detalhes do comentário.");

@@ -79,7 +79,6 @@ export default {
             type: "success",
             timeout: 5000,
           });
-          console.log("Usuário criado com sucesso.");
           this.$router.push({ name: "Users List" });
         })
         .catch((error) => {

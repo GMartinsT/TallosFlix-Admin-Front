@@ -148,7 +148,6 @@ export default {
       this.getData(page)
         .then((response) => {
           this.data = response.data;
-          console.log("Usuários obtidos:", this.data, this.columns);
         })
         .catch((error) => {
           console.error("Erro ao obter a lista de usuários:", error);
@@ -167,7 +166,6 @@ export default {
         this.getSearch(1, this.searchType, this.searchQuery)
           .then((response) => {
             this.data = response.data;
-            console.log(response.data);
           })
           .catch((error) => {
             console.error("Erro ao obter a busca de usuários:", error);

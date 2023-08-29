@@ -78,7 +78,6 @@ export default {
             type: "danger",
             timeout: 5000,
           });
-          console.log("Usuário deletado com sucesso.");
           this.reloadCount++;
         })
         .catch((error) => {
@@ -99,7 +98,6 @@ export default {
     async searchById(searchQuery) {
       const result = await UsersService.findUserById(searchQuery);
       const data = [result.data];
-      console.log(data);
       return data;
     },
 

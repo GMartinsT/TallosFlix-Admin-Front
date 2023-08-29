@@ -46,14 +46,12 @@ export default {
   },
 
   searchMovies(page, searchType, searchQuery) {
-    console.log(page, searchType, searchQuery)
     return ApiService.get(`/movies/search?page=${page}&searchType=${searchType}&searchQuery=${searchQuery}`)
   },
 
   async searchMovieById(searchQuery) {
     try {
       const response = await ApiService.get(`/movies/searchId/${searchQuery}`);
-      console.log(response, 'SERVICEEE');
       return response.data.data;
     } catch (error) {
       throw new Error("Erro ao obter detalhes do filme.");

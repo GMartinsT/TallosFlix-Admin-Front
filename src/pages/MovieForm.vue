@@ -295,7 +295,6 @@ export default {
           this.tomatoesLastUp = this.formatDate(
             this.movie.tomatoes.lastUpdated
           );
-          console.log("Detalhes do filme:", this.movie);
         })
         .catch((error) => {
           console.error("Erro ao obter os detalhes do filme:", error);
@@ -310,7 +309,6 @@ export default {
             type: "success",
             timeout: 5000,
           });
-          console.log("Filme atualizado com sucesso.");
           this.isEditMode = false;
         })
         .catch((error) => {

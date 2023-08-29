@@ -77,7 +77,6 @@ export default {
             type: "danger",
             timeout: 5000,
           });
-          console.log("Filme deletado com sucesso.");
           this.reloadCount++;
         })
         .catch((error) => {
@@ -101,7 +100,6 @@ export default {
 
     async searchById(searchQuery) {
       const result = await MoviesService.searchMovieById(searchQuery);
-      console.log("LISTAAAAAAAAAAAAAAA", result);
       return result;
     },
 
