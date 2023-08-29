@@ -45,7 +45,6 @@ export default {
           store.commit("setToken", response.access_token);
           store.commit("setUserId", response.session.user_id);
           location.replace("/#/admin/homepage");
-          console.log("Login bem-sucedido!");
         }
       } catch (error) {
         console.error("Credenciais inválidas", error);

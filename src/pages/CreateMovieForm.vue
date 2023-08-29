@@ -303,7 +303,6 @@ export default {
             type: "success",
             timeout: 5000,
           });
-          console.log("Filme criado com sucesso.");
           this.$router.push({ name: "Movies List" });
         })
         .catch((error) => {

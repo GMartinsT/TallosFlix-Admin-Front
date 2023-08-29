@@ -80,7 +80,6 @@ export default {
       UsersService.findUserById(this.userId)
         .then((response) => {
           this.user = response.data;
-          console.log("Detalhes do usuário:", this.user);
         })
         .catch((error) => {
           console.error("Erro ao obter os detalhes do usuário:", error);
@@ -95,7 +94,6 @@ export default {
             type: "success",
             timeout: 5000,
           });
-          console.log("Usuário atualizado com sucesso.");
           this.$router.push({ name: "Users List" });
         })
         .catch((error) => {

@@ -161,8 +161,7 @@ export default {
           (this.user._id = response.data._id),
             (this.user.name = response.data.name),
             (this.user.email = response.data.email),
-            (this.user.password = response.data.password),
-            console.log("Detalhes do usuário:", this.user);
+            (this.user.password = response.data.password)
         })
         .catch((error) => {
           console.error("Erro ao obter os detalhes do usuário:", error);
@@ -181,8 +180,6 @@ export default {
             type: "success",
             timeout: 5000,
           });
-
-          console.log("Detalhes do usuário atualizados:", response.data);
         })
         .catch((error) => {
           this.$notify({
@@ -198,7 +195,6 @@ export default {
       try {
         const response = await MoviesService.getAllMovies(1);
         this.latestMovies = response.data.data.slice(0, 5);
-        console.log(this.latestMovies);
       } catch (error) {
         console.error("Erro ao carregar os filmes mais recentes:", error);
       }

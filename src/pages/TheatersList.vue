@@ -209,7 +209,6 @@ export default {
             type: "danger",
             timeout: 5000,
           });
-          console.log("Cinema deletado com sucesso.");
           this.reloadCount++;
         })
         .catch((error) => {
@@ -230,7 +229,6 @@ export default {
           searchType,
           searchQuery
         );
-        console.log(result.data);
         return result;
       } catch (error) {
         console.error("Erro ao buscar cinema:", error);
@@ -240,7 +238,6 @@ export default {
     async searchById(searchQuery) {
       const result = await TheatersService.searchTheaterById(searchQuery);
       const data = result.data.data;
-      console.log(data);
       return data;
     },
 

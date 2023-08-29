@@ -132,7 +132,6 @@ export default {
     async showJwt(sessionId) {
       try {
         const session = await SessionsService.getSessionById(sessionId);
-        console.log(session);
         this.selectedSessionText = session.data.jwt;
         this.showSessionPopup = true;
       } catch (error) {
@@ -149,7 +148,6 @@ export default {
           searchType,
           searchQuery
         );
-        console.log(result.data);
         return result;
       } catch (error) {
         console.error("Erro ao buscar sessão:", error);
@@ -158,7 +156,6 @@ export default {
     async searchCommentById(searchQuery) {
       const result = await CommentsService.searchCommentById(searchQuery);
       const data = result;
-      console.log("DATAA", data, "RESULT", result);
       return data;
     },
     async searchSessions(page, searchType, searchQuery) {
@@ -177,7 +174,6 @@ export default {
     async searchSessionById(searchQuery) {
       const result = await SessionsService.getSessionById(searchQuery);
       const data = [result.data];
-      console.log(data);
       return data;
     },
   },

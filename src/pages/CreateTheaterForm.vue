@@ -136,7 +136,6 @@ export default {
             type: "success",
             timeout: 5000,
           });
-          console.log("Teatro criado com sucesso.");
           this.$router.push({ name: "Theaters List" });
         })
         .catch((error) => {
